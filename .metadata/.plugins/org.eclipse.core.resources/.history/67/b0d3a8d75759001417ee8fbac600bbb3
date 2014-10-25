@@ -1,0 +1,54 @@
+package myapp;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Registered {
+	private String file;
+	private ConcurrentHashMap<String,String> registered;
+	
+	public Registered(){
+		this.registered = new ConcurrentHashMap<String,String>();
+	}
+	public Registered(String file){
+		this.file =file;
+		this.registered = new ConcurrentHashMap<String,String>();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized void backupUsers() throws IOException{
+		File fich = new File(file);
+		if(fich.exists()){
+			ObjectMapper om = new ObjectMapper();
+			registered = om.readValue(fich, ConcurrentHashMap.class);
+		}
+	}
+	public synchronized HashMap<String,String> getRegistered(){
+		HashMap<String,String> hashRet = new HashMap<String,String>();
+		Set<String> keySet = this.registered.keySet();
+		for(String s: keySet){
+			hashRet.put(s, this.registered.get(s));
+		}
+		return hashRet;
+	}
+	
+	public synchronized void addUser(String user,String regId){
+		this.registered.put(user,regId);
+		ObjectMapper om = new ObjectMapper();
+		try {
+			om.writeValue(new File(file),registered);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public synchronized int getNUsers(){
+		return registered.size();
+	}
+}

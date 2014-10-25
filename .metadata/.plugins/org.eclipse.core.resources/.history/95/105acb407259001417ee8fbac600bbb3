@@ -1,0 +1,67 @@
+package myapp;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Registered {
+	private String file;
+	private ConcurrentHashMap<String,User> registered;
+	
+	public Registered(){
+		this.registered = new ConcurrentHashMap<String,User>();
+	}
+	public Registered(String file){
+		this.file =file;
+		this.registered = new ConcurrentHashMap<String,User>();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized void backupUsers() throws IOException{
+		File fich = new File(file);
+		if(fich.exists()){
+			ObjectMapper om = new ObjectMapper();
+			registered = om.readValue(fich, ConcurrentHashMap.class);
+		}
+	}
+	public synchronized void addRequester(String mail, String regId) throws Exception{
+		User user = registered.get(mail);
+		if(user!=null){
+			user.addRequesterId(regId);
+		}else{
+			user = new User();
+			user.addRequesterId(regId);
+			registered.put(mail, user);
+		}
+		ObjectMapper om = new ObjectMapper();
+		om.writeValue(new File(file), registered);
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
+	public HashMap<String, User> getRegistered() {
+		HashMap<String, User> hashRet = new HashMap<String,User>();
+		Set<String> keys = this.registered.keySet();
+		for(String s: keys){
+			User u = this.registered.get(s);
+			hashRet.put(s, u);
+		}
+		
+		return hashRet;
+	}
+	public void setRegistered(ConcurrentHashMap<String, User> registered) throws Exception{
+		this.registered = registered;
+		ObjectMapper om = new ObjectMapper();
+		om.writeValue(new File(file), registered);
+	}
+	public synchronized int getNUsers(){
+		return registered.size();
+	}
+}

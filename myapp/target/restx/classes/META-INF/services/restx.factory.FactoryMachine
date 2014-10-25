@@ -1,0 +1,5 @@
+myapp.AppModuleFactoryMachine
+myapp.rest.HelloResourceFactoryMachine
+myapp.rest.HelloResourceRouterFactoryMachine
+myapp.rest.PTCResourceFactoryMachine
+myapp.rest.PTCResourceRouterFactoryMachine

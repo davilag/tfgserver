@@ -1,0 +1,62 @@
+package myapp;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Registered {
+	private String file;
+	private HashMap<String,User> registered;
+	
+	public Registered(){
+		this.registered = new HashMap<String,User>();
+	}
+	public Registered(String file){
+		this.file =file;
+		this.registered = new HashMap<String,User>();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public synchronized void backupUsers() throws IOException{
+		File fich = new File(file);
+		if(fich.exists()){
+			ObjectMapper om = new ObjectMapper();
+			registered = om.readValue(fich, HashMap.class);
+		}
+	}
+	public synchronized void addRequester(String mail, String regId) throws Exception{
+		User user = registered.get(mail);
+		if(user!=null){
+			user.addRequesterId(regId);
+		}else{
+			user = new User();
+			user.addRequesterId(regId);
+			registered.put(mail, user);
+		}
+		ObjectMapper om = new ObjectMapper();
+		om.writeValue(new File(file), registered);
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
+	public HashMap<String, User> getRegistered() {
+		HashMap<String, User> hashRet = (HashMap<String, User>) this.registered.clone();
+
+		
+		return hashRet;
+	}
+	public void setRegistered(HashMap<String, User> registered) throws Exception{
+		this.registered = registered;
+		ObjectMapper om = new ObjectMapper();
+		om.writeValue(new File(file), registered);
+	}
+	public synchronized int getNUsers(){
+		return registered.size();
+	}
+}

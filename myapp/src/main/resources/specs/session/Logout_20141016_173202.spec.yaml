@@ -1,0 +1,9 @@
+title: Logout 20141016 173202
+given:
+  - time: 2014-10-16T17:32:02.277+02:00
+wts:
+  - when: DELETE sessions/92a334c0-23ea-428e-a2ac-f9c5a225ca88
+    then: |
+        {
+          "status" : "logout"
+        }

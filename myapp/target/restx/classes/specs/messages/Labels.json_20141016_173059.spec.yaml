@@ -1,0 +1,11 @@
+title: Labels.json 20141016 173059
+given:
+  - time: 2014-10-16T17:30:59.054+02:00
+wts:
+  - when: |
+       GET i18n/labels.json
+       Cookie: RestxSession-MyApp={"_expires":"2014-11-15T17:30:59.054+01:00","principal":"d.avilag23@gmail.com","sessionKey":"d5fcc595-53ab-4e93-8ce9-65bf39b1c762"}; RestxSessionSignature-MyApp=LTlZSwB1lEmIOU8Mj0I+3lMPRy4=
+    then: |
+       304
+
+        Not Modified

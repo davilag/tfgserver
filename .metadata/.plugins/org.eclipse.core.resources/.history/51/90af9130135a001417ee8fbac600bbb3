@@ -1,0 +1,53 @@
+package myapp;
+
+
+public class User {
+	private String[] containersIds;
+	private String[] requestersIds;
+	
+	public User(){
+		this.containersIds = new String[1];
+		this.requestersIds = new String[1];
+	}
+
+	
+	public String[] getContainersIds() {
+		return containersIds;
+	}
+
+
+	public void setContainersIds(String[] containersIds) {
+		this.containersIds = containersIds;
+	}
+
+
+	public String[] getRequestersIds() {
+		return requestersIds;
+	}
+
+
+	public void setRequestersIds(String[] requestersIds) {
+		this.requestersIds = requestersIds;
+	}
+
+
+	public boolean addRequesterId(String regId){
+//		if(!this.requestersIds.contains(regId)){
+//			return this.requestersIds.add(regId);
+//		}else{
+//			return true;
+//		}
+		this.containersIds[0] = regId;
+		return true;
+	}
+	
+	public boolean addContainterId(String regId){
+//		if(!this.containersIds.contains(regId)){
+//			return this.containersIds.add(regId);
+//		}else{
+//			return true;
+//		}
+		this.requestersIds[0] = regId;
+		return true;
+	}
+}

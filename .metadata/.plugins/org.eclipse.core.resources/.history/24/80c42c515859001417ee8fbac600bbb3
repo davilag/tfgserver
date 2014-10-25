@@ -1,0 +1,27 @@
+package myapp;
+
+import java.util.ArrayList;
+
+public class User {
+	private ArrayList<String> containersIds;
+	private ArrayList<String> requestersIds;
+	
+	public User(){
+		this.containersIds = new ArrayList<String>();
+		this.requestersIds = new ArrayList<String>();
+	}
+	public ArrayList<String> getContainersIds() {
+		return containersIds;
+	}
+	public void setContainersIds(ArrayList<String> containersIds) {
+		this.containersIds = containersIds;
+	}
+	public ArrayList<String> getRequestersIds() {
+		return requestersIds;
+	}
+	public void setRequestersIds(ArrayList<String> requestersIds) {
+		this.requestersIds = requestersIds;
+	}
+	
+	
+}

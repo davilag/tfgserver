@@ -1,0 +1,13 @@
+package myapp.domain;
+
+public class Message {
+	private HashMap<String,String> data;
+
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "mesage='" + message + '\'' +
+                '}';
+    }
+}

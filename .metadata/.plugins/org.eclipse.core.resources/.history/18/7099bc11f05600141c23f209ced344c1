@@ -1,0 +1,23 @@
+package myapp.domain;
+
+public class Message {
+    private String message;
+
+    public String[] getMessage() {
+        return mesage;
+    }
+
+    public Message setMessage(final String message) {
+        this.mesage = new String[3];
+        this.mesage[0] = message;
+        this.message = message;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "mesage='" + message + '\'' +
+                '}';
+    }
+}

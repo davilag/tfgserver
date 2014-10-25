@@ -1,0 +1,11 @@
+title: Hello public 20141016 171641
+given:
+  - time: 2014-10-16T17:16:41.247+02:00
+wts:
+  - when: |
+       GET hello?who=davilag
+       Cookie: RestxSession-MyApp={"_expires":"2014-11-15T17:16:41.247+01:00","principal":"admin","sessionKey":"288f8387-b32e-4f82-8ff5-d30713b0bc70"}; RestxSessionSignature-MyApp=rzgdikxImA7TwBT4cViJoTipGJQ=
+    then: |
+        {
+          "message" : "hello davilag, it's 17:16:41"
+        }

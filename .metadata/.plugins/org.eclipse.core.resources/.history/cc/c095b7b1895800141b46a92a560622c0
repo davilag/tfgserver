@@ -1,0 +1,13 @@
+package myapp.domain;
+
+public class GCMRegisteredResponse extends GCMMessage {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

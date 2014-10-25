@@ -1,0 +1,25 @@
+package myapp.domain;
+
+import java.util.HashMap;
+
+import myapp.Globals;
+
+public class Message {
+	private HashMap<String,String> data;
+
+	public Message(){
+		data = new HashMap<String,String>();
+	}
+	
+	public String getRegId(){
+		return data.get(Globals.MSG_REG_ID);
+	}
+	
+	public String getAction(){
+		return data.get(Globals.MSG_ACTION);
+	}
+	
+	public String getEmail(){
+		return data.get(Globals.MSG_MAIL);
+	}
+}
