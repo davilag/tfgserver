@@ -25,10 +25,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-/*
- * Clase que contiene las llamadas al servicio REST y los diferentes métodos que se
- * ejecutan cuando se les llama.
- */
 @Component @RestxResource
 public class HelloResource {
 	private static final String fichRegistered = "/tmp/users-REST.json";
@@ -169,17 +165,6 @@ public class HelloResource {
     	return false;
     }
     
-    /*
-     * Método al que se llama cuando el servicio REST recibe una petición POST a la URL /askforpass.
-     * Este método solo será util cuando sea llamado por un dispositivo registrado anteriormente e 
-     * identificador como requester. Cuando se llama satisfactoriamente a este método, envia una 
-     * notificación a todos los containers que haya registrado el usuario. Esta llamada consume
-     * un json en el body de la petición con la siguiente estructura:
-     * Objeto raíz data que contiene los siguientes valores:
-     * 		->mail: mail con el que se ha registrado el usuario anteriormente en el servicio.
-     * 		->regId: regId generado con GCM que utiliza el dispositivo que ha hecho la petición.
-     * 		->dominio: dominio de la página web de la que se ha pedido la contraseña.
-     */
     @POST("/askforpass")
     @PermitAll
     public Boolean askForPass(Message message){
@@ -258,11 +243,6 @@ public class HelloResource {
     	return false;
     }
     
-    /*
-     * 
-     * METODOS DE DEBUG PARA VER EL ESTADO DE LOS REGISTRADOS Y LAS PETICIONES.
-     * 
-     */
     @GET("/registered")
     @PermitAll
     public String getRegistered() throws JsonProcessingException{

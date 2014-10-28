@@ -8,10 +8,6 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/*
- * Clase para almacenar las peticiones que ha hecho un requester y se ha enviado 
- * a un container.
- */
 public class Requests {
 	private String nfich;
 	private HashMap<String,HashMap<String,String>> pendingRequests;

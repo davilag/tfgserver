@@ -14,13 +14,13 @@
 <fullyQualifiedTypeName name="myapp.domain.Message"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
 <fullyQualifiedTypeName name="myapp.Globals"/>
-<fullyQualifiedTypeName name="java.net.URL"/>
 <fullyQualifiedTypeName name="javax.net.ssl.HttpsURLConnection"/>
 <fullyQualifiedTypeName name="myapp.domain.GCMMessage"/>
 <fullyQualifiedTypeName name="restx.security.UserService"/>
-<fullyQualifiedTypeName name="java.io.DataOutputStream"/>
 <fullyQualifiedTypeName name="myapp.User"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectWriter"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="java.io.DataOutputStream"/>
 <fullyQualifiedTypeName name="myapp.Requests"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
 </qualifiedTypeNameHistroy>

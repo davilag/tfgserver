@@ -5496,3 +5496,277 @@ com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instanc
 2014-10-25 12:10:00,467 [qtp14180567-77  ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 172,3 ms
 2014-10-25 12:48:36,015 [qtp14180567-108 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 284,9 ms
 2014-10-25 12:48:39,885 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-25 13:14:55,948 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-25 13:14:56,737 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-25 13:14:56,738 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-25 13:14:56,801 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-25 13:14:57,153 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-25 13:14:57,195 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-25 13:14:58,125 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-25 13:14:58,227 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-25 13:15:14,056 [qtp2109588399-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-25 13:15:14,205 [qtp2109588399-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 402,9 ms
+2014-10-25 13:15:14,298 [qtp2109588399-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 92,26 ms
+2014-10-25 13:15:34,603 [qtp2109588399-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 33,00 ms
+2014-10-25 13:15:53,736 [qtp2109588399-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 637,1 ms
+2014-10-25 13:16:08,508 [qtp2109588399-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 186,3 ms
+2014-10-25 13:16:58,525 [qtp2109588399-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 8,496 ms
+2014-10-25 13:17:05,023 [qtp2109588399-25] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 9,399 ms
+2014-10-25 13:17:05,679 [qtp2109588399-25] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 6,172 ms
+2014-10-25 13:17:11,833 [qtp2109588399-25] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 1,437 ms
+2014-10-25 13:17:14,260 [qtp2109588399-25] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 1,432 ms
+2014-10-25 13:17:32,913 [qtp2109588399-25] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 22,48 ms
+2014-10-25 13:17:35,235 [qtp2109588399-25] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 6,223 ms
+2014-10-25 13:17:41,134 [qtp2109588399-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 11,84 ms
+2014-10-25 13:17:43,586 [qtp2109588399-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 5,885 ms
+2014-10-25 13:18:01,331 [qtp2109588399-25] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 261,9 ms
+2014-10-25 13:18:04,300 [qtp2109588399-25] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 4,573 ms
+2014-10-25 13:18:14,626 [qtp2109588399-28] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 171,1 ms
+2014-10-25 13:19:24,527 [qtp2109588399-28] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 181,0 ms
+2014-10-25 13:19:31,874 [qtp2109588399-28] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 176,5 ms
+2014-10-25 13:20:06,964 [qtp2109588399-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 6,149 ms
+2014-10-25 13:23:59,654 [qtp2109588399-33] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 21,93 ms
+2014-10-25 13:24:02,528 [qtp2109588399-36] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 356,0 ms
+2014-10-25 13:24:05,576 [qtp2109588399-36] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 207,9 ms
+2014-10-25 13:25:25,591 [qtp2109588399-39] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 415,7 ms
+2014-10-25 13:25:30,473 [qtp2109588399-41] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 153,7 ms
+2014-10-25 13:25:49,782 [qtp2109588399-39] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 151,6 ms
+2014-10-25 13:25:56,685 [qtp2109588399-41] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 178,6 ms
+2014-10-25 13:33:11,173 [qtp2109588399-52] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 279,6 ms
+2014-10-25 13:33:14,426 [qtp2109588399-52] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 190,5 ms
+2014-10-25 13:51:08,836 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-25 16:35:56,876 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-25 16:35:57,613 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-25 16:35:57,614 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-25 16:35:57,671 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-25 16:35:58,005 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-25 16:35:58,039 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-25 16:35:58,890 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-25 16:35:58,991 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-25 16:36:13,462 [qtp1841199413-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-25 16:36:13,587 [qtp1841199413-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 343,0 ms
+2014-10-25 16:36:13,675 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 86,88 ms
+2014-10-25 16:36:26,813 [qtp1841199413-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 15,12 ms
+2014-10-25 16:36:33,344 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 572,9 ms
+2014-10-25 16:36:45,366 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 198,1 ms
+2014-10-26 13:30:00,535 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-26 13:30:04,169 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-26 13:30:04,900 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-26 13:30:04,901 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-26 13:30:04,956 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-26 13:30:05,232 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-26 13:30:05,270 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-26 13:30:06,226 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-26 13:30:06,328 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-26 13:30:19,076 [qtp1841199413-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-26 13:30:19,291 [qtp1841199413-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] GET /registered - per request factory created in 511,8 ms
+2014-10-26 13:30:19,314 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 21,41 ms
+2014-10-26 13:30:19,331 [qtp1841199413-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 1,728 ms
+2014-10-26 13:30:19,531 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 1,478 ms
+2014-10-26 13:30:23,844 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 10,40 ms
+2014-10-26 13:30:53,833 [qtp1841199413-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 83,32 ms
+2014-10-26 13:31:48,716 [qtp1841199413-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 4,189 ms
+2014-10-26 13:31:58,684 [qtp1841199413-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 8,930 ms
+2014-10-26 13:32:09,963 [qtp1841199413-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 14,28 ms
+2014-10-26 13:32:15,156 [qtp1841199413-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 6,836 ms
+2014-10-26 13:32:34,710 [qtp1841199413-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 1,156 s
+2014-10-26 13:32:38,955 [qtp1841199413-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 194,2 ms
+2014-10-26 13:33:16,875 [qtp1841199413-24] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 163,4 ms
+2014-10-26 13:33:21,355 [qtp1841199413-24] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 185,0 ms
+2014-10-26 13:37:49,551 [qtp1841199413-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 7,176 ms
+2014-10-26 13:37:52,396 [qtp1841199413-33] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 5,865 ms
+2014-10-26 13:38:49,729 [qtp1841199413-33] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 255,4 ms
+2014-10-26 13:39:08,729 [qtp1841199413-35] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 183,7 ms
+2014-10-26 13:43:17,249 [qtp1841199413-39] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 214,2 ms
+2014-10-26 13:43:39,113 [qtp1841199413-39] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 8,290 ms
+2014-10-26 13:44:10,862 [qtp1841199413-42] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 11,46 ms
+2014-10-26 13:44:23,346 [qtp1841199413-42] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 158,9 ms
+2014-10-26 13:44:45,081 [qtp1841199413-42] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 4,936 ms
+2014-10-26 13:47:39,843 [qtp1841199413-46] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 7,642 ms
+2014-10-26 13:47:47,552 [qtp1841199413-46] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 9,591 ms
+2014-10-26 13:47:52,189 [qtp1841199413-46] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 3,776 ms
+2014-10-26 13:48:01,075 [qtp1841199413-46] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 203,0 ms
+2014-10-26 13:48:04,263 [qtp1841199413-47] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 204,5 ms
+2014-10-26 13:48:47,334 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-26 13:55:11,096 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-26 13:55:11,775 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-26 13:55:11,777 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-26 13:55:11,835 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-26 13:55:12,156 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-26 13:55:12,188 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-26 13:55:13,030 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-26 13:55:13,129 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-26 13:55:16,361 [qtp1946664668-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-26 13:55:16,480 [qtp1946664668-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 363,9 ms
+2014-10-26 13:55:16,560 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 79,56 ms
+2014-10-26 13:55:32,648 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 8,747 ms
+2014-10-26 13:55:32,872 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 1,132 ms
+2014-10-26 13:56:06,531 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 14,26 ms
+2014-10-26 13:56:11,949 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 519,8 ms
+2014-10-26 13:56:14,810 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 178,1 ms
+2014-10-26 13:58:43,205 [qtp1946664668-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 182,3 ms
+2014-10-26 13:58:48,670 [qtp1946664668-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 201,2 ms
+2014-10-26 17:58:06,251 [qtp1946664668-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 250,6 ms
+2014-10-26 17:58:18,082 [qtp1946664668-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 12,27 ms
+2014-10-26 17:58:33,805 [qtp1946664668-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 18,49 ms
+2014-10-26 17:58:45,438 [qtp1946664668-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 13,23 ms
+2014-10-26 17:58:48,984 [qtp1946664668-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 7,029 ms
+2014-10-26 17:59:02,078 [qtp1946664668-35] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 350,2 ms
+2014-10-26 17:59:07,706 [qtp1946664668-35] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 227,4 ms
+2014-10-26 18:05:35,503 [qtp1946664668-43] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 204,6 ms
+2014-10-26 18:05:43,493 [qtp1946664668-43] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 180,9 ms
+2014-10-26 18:16:37,094 [qtp1946664668-56] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 398,8 ms
+2014-10-26 18:16:40,046 [qtp1946664668-56] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 224,6 ms
+2014-10-26 18:28:48,209 [qtp1946664668-71] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 600,1 ms
+2014-10-26 18:30:17,448 [qtp1946664668-73] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 196,2 ms
+2014-10-26 18:30:21,281 [qtp1946664668-73] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 159,3 ms
+2014-10-26 18:30:36,818 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-26 22:27:02,981 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-26 22:27:03,824 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-26 22:27:03,825 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-26 22:27:03,880 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-26 22:27:04,137 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-26 22:27:04,171 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-26 22:27:05,095 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-26 22:27:05,200 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-26 22:27:09,256 [qtp1841199413-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-26 22:27:09,394 [qtp1841199413-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 364,1 ms
+2014-10-26 22:27:09,473 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 78,73 ms
+2014-10-26 22:27:24,848 [qtp1841199413-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 23,71 ms
+2014-10-26 22:27:30,348 [qtp1841199413-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 9,984 ms
+2014-10-26 22:27:30,628 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 1,068 ms
+2014-10-26 22:27:48,831 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 526,0 ms
+2014-10-26 22:27:56,383 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 205,6 ms
+2014-10-26 22:29:01,581 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 137,5 ms
+2014-10-26 22:29:17,973 [qtp1841199413-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 156,8 ms
+2014-10-26 22:29:18,100 [qtp1841199413-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 16,56 ms
+2014-10-26 22:29:18,268 [qtp1841199413-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 11,51 ms
+2014-10-26 22:29:18,429 [qtp1841199413-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 10,47 ms
+2014-10-26 22:29:18,583 [qtp1841199413-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 8,836 ms
+2014-10-26 22:29:18,678 [qtp1841199413-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 10,52 ms
+2014-10-26 22:29:41,502 [qtp1841199413-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 168,1 ms
+2014-10-26 22:29:45,108 [qtp1841199413-26] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 150,0 ms
+2014-10-26 22:32:37,933 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-27 16:50:47,544 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-27 16:50:48,375 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-27 16:50:48,376 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-27 16:50:48,435 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-27 16:50:50,016 [pool-1-thread-1 ] [          ] INFO  restx.classloader.CompilationManager - compilation finished: 1 sources compiled in 1,347 s
+2014-10-27 16:50:50,252 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-27 16:50:50,290 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-27 16:50:51,022 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-27 16:50:51,154 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-27 16:52:23,129 [qtp679713031-22 ] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-27 16:52:23,257 [qtp679713031-22 ] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] GET /urls.json ? nocache=1414425142814 - per request factory created in 383,6 ms
+2014-10-27 16:52:23,266 [qtp679713031-22 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414425142814 >> NOT_FOUND - 8,125 ms
+2014-10-27 16:52:26,535 [qtp679713031-22 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414425146444 >> NOT_FOUND - 603,0 μs
+2014-10-27 16:52:27,009 [qtp679713031-22 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414425146865 >> NOT_FOUND - 1,274 ms
+2014-10-27 16:52:50,358 [qtp679713031-23 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 84,31 ms
+2014-10-27 16:53:06,190 [qtp679713031-22 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 14,87 ms
+2014-10-27 16:53:19,267 [qtp679713031-22 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 1,195 s
+2014-10-27 16:53:24,099 [qtp679713031-22 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 168,1 ms
+2014-10-27 16:58:47,234 [qtp679713031-30 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414425527142 >> NOT_FOUND - 1,908 ms
+2014-10-27 16:58:50,726 [qtp679713031-30 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414425530668 >> NOT_FOUND - 680,0 μs
+2014-10-27 17:06:17,661 [qtp679713031-38 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414425977584 >> NOT_FOUND - 967,0 μs
+2014-10-27 17:07:59,705 [qtp679713031-40 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414426079644 >> NOT_FOUND - 1,046 ms
+2014-10-27 17:08:06,035 [qtp679713031-40 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414426085961 >> NOT_FOUND - 932,0 μs
+2014-10-27 17:08:32,452 [qtp679713031-40 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414426112383 >> NOT_FOUND - 891,0 μs
+2014-10-27 17:08:33,226 [qtp679713031-40 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414426113172 >> NOT_FOUND - 590,0 μs
+2014-10-27 17:10:03,774 [qtp679713031-42 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414426203721 >> NOT_FOUND - 600,0 μs
+2014-10-27 17:10:38,659 [qtp679713031-42 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414426238620 >> NOT_FOUND - 626,0 μs
+2014-10-27 17:27:50,231 [qtp679713031-45 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414427270164 >> NOT_FOUND - 875,0 μs
+2014-10-27 17:29:10,721 [pool-2-thread-1 ] [          ] INFO  restx.classloader.CompilationManager - compilation finished: 1 sources compiled in 323,9 ms
+2014-10-27 17:31:30,438 [pool-2-thread-1 ] [          ] INFO  restx.classloader.CompilationManager - compilation finished: 1 sources compiled in 40,83 ms
+2014-10-27 17:34:30,485 [pool-2-thread-1 ] [          ] INFO  restx.classloader.CompilationManager - compilation finished: 1 sources compiled in 87,65 ms
+2014-10-27 17:35:20,482 [pool-2-thread-1 ] [          ] INFO  restx.classloader.CompilationManager - compilation finished: 1 sources compiled in 87,55 ms
+2014-10-27 17:35:21,594 [qtp679713031-53 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 451,3 ms
+2014-10-27 17:35:26,255 [qtp679713031-53 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 139,7 ms
+2014-10-27 17:35:35,757 [qtp679713031-53 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414427735683 >> NOT_FOUND - 525,0 μs
+2014-10-27 17:35:45,140 [qtp679713031-53 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414427745087 >> NOT_FOUND - 645,0 μs
+2014-10-27 17:36:58,455 [qtp679713031-58 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414427818403 >> NOT_FOUND - 887,0 μs
+2014-10-27 17:37:11,482 [qtp679713031-58 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414427831441 >> NOT_FOUND - 581,0 μs
+2014-10-27 17:44:00,638 [pool-2-thread-1 ] [          ] INFO  restx.classloader.CompilationManager - compilation finished: 1 sources compiled in 233,0 ms
+2014-10-27 17:45:53,749 [qtp679713031-67 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 466,6 ms
+2014-10-27 17:45:57,974 [qtp679713031-69 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 133,1 ms
+2014-10-27 17:46:47,877 [qtp679713031-69 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /urls.json ? nocache=1414428407832 >> NOT_FOUND - 1,017 ms
+2014-10-27 18:12:37,850 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-27 18:48:11,503 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-27 18:48:12,042 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-27 18:48:12,042 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-27 18:48:12,069 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-27 18:48:12,299 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-27 18:48:12,326 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-27 18:48:12,896 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-27 18:48:12,945 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-27 18:48:15,687 [qtp1946664668-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-27 18:48:15,771 [qtp1946664668-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 303,0 ms
+2014-10-27 18:48:15,843 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 71,96 ms
+2014-10-27 18:48:29,365 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 430,3 ms
+2014-10-27 18:48:34,068 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 163,9 ms
+2014-10-27 18:48:50,493 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 127,0 ms
+2014-10-27 18:48:54,629 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 147,2 ms
+2014-10-27 18:49:03,207 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 7,943 ms
+2014-10-27 18:49:03,391 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 1,773 ms
+2014-10-27 18:50:25,701 [qtp1946664668-27] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 12,81 ms
+2014-10-27 18:50:30,120 [qtp1946664668-27] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 269,0 ms
+2014-10-27 18:50:33,299 [qtp1946664668-27] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 120,0 ms
+2014-10-27 18:51:36,376 [qtp1946664668-27] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 342,2 ms
+2014-10-27 18:51:38,385 [qtp1946664668-27] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 155,3 ms
+2014-10-27 18:54:38,848 [qtp1946664668-35] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 141,5 ms
+2014-10-27 18:54:40,609 [qtp1946664668-35] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 131,9 ms
+2014-10-27 18:56:13,064 [qtp1946664668-38] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 193,3 ms
+2014-10-27 18:56:18,464 [qtp1946664668-40] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 111,6 ms
+2014-10-27 23:55:49,659 [qtp1946664668-128] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 264,3 ms
+2014-10-27 23:55:49,815 [qtp1946664668-128] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 883,0 μs
+2014-10-27 23:56:03,837 [qtp1946664668-129] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 4,438 ms
+2014-10-27 23:56:07,850 [qtp1946664668-128] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 3,133 ms
+2014-10-27 23:57:00,487 [qtp1946664668-128] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 11,66 ms
+2014-10-27 23:57:38,676 [qtp1946664668-131] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 5,674 ms
+2014-10-27 23:57:57,909 [qtp1946664668-131] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 3,396 ms
+2014-10-27 23:58:17,063 [qtp1946664668-131] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 12,11 ms
+2014-10-27 23:58:28,599 [qtp1946664668-132] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 218,3 ms
+2014-10-27 23:58:35,240 [qtp1946664668-132] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 145,7 ms
+2014-10-27 23:58:39,510 [qtp1946664668-132] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 6,592 ms
+2014-10-28 00:01:05,998 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced

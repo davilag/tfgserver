@@ -25,10 +25,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-/*
- * Clase que contiene las llamadas al servicio REST y los diferentes métodos que se
- * ejecutan cuando se les llama.
- */
 @Component @RestxResource
 public class HelloResource {
 	private static final String fichRegistered = "/tmp/users-REST.json";

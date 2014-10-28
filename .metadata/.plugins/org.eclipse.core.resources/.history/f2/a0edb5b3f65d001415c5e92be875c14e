@@ -3,10 +3,6 @@ package myapp.domain;
 import java.util.HashMap;
 import java.util.Set;
 
-/*
- * Clase para facilitar el aplanado y desaplanado de los cuerpos en las 
- * peticiones HTTP del servicio.
- */
 public class Message {
 	private HashMap<String,String> data;
 

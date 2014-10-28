@@ -9,9 +9,6 @@ import java.util.Set;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/*
- * Clase para almacenar las regIds que han dado de alta los diferentes usuarios del servicio.
- */
 public class Registered {
 	private String file;
 	private HashMap<String,LinkedHashMap<String,ArrayList<String>>> registered;

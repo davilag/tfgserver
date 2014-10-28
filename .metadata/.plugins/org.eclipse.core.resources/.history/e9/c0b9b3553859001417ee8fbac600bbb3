@@ -1,7 +1,0 @@
-package myapp.domain;
-
-public class GCMRegisteredResponse extends GCMMessage {
-	public GCMRegisteredResponse(){
-		this.addData("", value)
-	}
-}
