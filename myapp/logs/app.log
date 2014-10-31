@@ -5770,3 +5770,312 @@ com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instanc
 2014-10-27 23:58:35,240 [qtp1946664668-132] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 145,7 ms
 2014-10-27 23:58:39,510 [qtp1946664668-132] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 6,592 ms
 2014-10-28 00:01:05,998 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-28 16:55:01,720 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-28 16:55:02,402 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-28 16:55:02,403 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-28 16:55:02,459 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-28 16:55:02,722 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-28 16:55:02,755 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-28 16:55:04,006 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-28 16:55:04,156 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-28 16:55:31,710 [qtp1946664668-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-28 16:55:31,827 [qtp1946664668-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 343,1 ms
+2014-10-28 16:55:31,903 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 75,21 ms
+2014-10-28 16:55:59,235 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 19,94 ms
+2014-10-28 16:56:07,013 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 532,9 ms
+2014-10-28 16:56:11,050 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 148,9 ms
+2014-10-28 16:56:59,274 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 120,9 ms
+2014-10-28 16:57:05,187 [qtp1946664668-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 6,861 ms
+2014-10-28 16:57:05,303 [qtp1946664668-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 1,442 ms
+2014-10-28 16:57:06,536 [qtp1946664668-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 6,080 ms
+2014-10-28 16:57:13,039 [qtp1946664668-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 150,3 ms
+2014-10-28 16:58:44,088 [pool-2-thread-1 ] [          ] INFO  restx.classloader.CompilationManager - compilation finished: 1 sources compiled in 1,225 s
+2014-10-28 16:59:26,058 [qtp1946664668-30] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 6,550 ms
+2014-10-28 16:59:36,780 [qtp1946664668-30] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 5,299 ms
+2014-10-28 17:01:20,251 [qtp1946664668-32] [          ] ERROR restx.StdRestxMainRouter - request raised NullPointerException: null
+java.lang.NullPointerException: null
+	at myapp.Registered.hasRegId(Registered.java:97) ~[bin/:na]
+	at myapp.rest.HelloResource.askForPass(HelloResource.java:203) ~[bin/:na]
+	at myapp.rest.HelloResourceRouter$3.doRoute(HelloResourceRouter.java:109) ~[na:na]
+	at myapp.rest.HelloResourceRouter$3.doRoute(HelloResourceRouter.java:105) ~[na:na]
+	at restx.entity.StdEntityRoute.handle(StdEntityRoute.java:139) ~[restx-core-0.33.1.jar:na]
+	at restx.RestxHandlerMatch.handle(RestxHandlerMatch.java:56) ~[restx-core-0.33.1.jar:na]
+	at restx.ResponseCloserFilter.handle(ResponseCloserFilter.java:28) ~[restx-core-0.33.1.jar:na]
+	at restx.RestxHandlerMatch.handle(RestxHandlerMatch.java:56) ~[restx-core-0.33.1.jar:na]
+	at restx.CacheFilter$1.handle(CacheFilter.java:51) ~[restx-core-0.33.1.jar:na]
+	at restx.RestxHandlerMatch.handle(RestxHandlerMatch.java:56) ~[restx-core-0.33.1.jar:na]
+	at restx.security.RestxSessionLogFilter.handle(RestxSessionLogFilter.java:43) ~[restx-core-0.33.1.jar:na]
+	at restx.RestxHandlerMatch.handle(RestxHandlerMatch.java:56) ~[restx-core-0.33.1.jar:na]
+	at restx.security.RestxSessionCookieFilter.handle(RestxSessionCookieFilter.java:99) ~[restx-core-0.33.1.jar:na]
+	at restx.RestxHandlerMatch.handle(RestxHandlerMatch.java:56) ~[restx-core-0.33.1.jar:na]
+	at restx.stats.RestxStatsCollectionFilter.handle(RestxStatsCollectionFilter.java:39) ~[restx-stats-admin-0.33.1.jar:na]
+	at restx.RestxHandlerMatch.handle(RestxHandlerMatch.java:56) ~[restx-core-0.33.1.jar:na]
+	at restx.StdRestxMainRouter.route(StdRestxMainRouter.java:152) ~[restx-core-0.33.1.jar:na]
+	at restx.RestxMainRouterFactory$PerRequestFactoryLoader.route(RestxMainRouterFactory.java:217) [restx-core-0.33.1.jar:na]
+	at restx.RestxMainRouterFactory$RecordingMainRouter.route(RestxMainRouterFactory.java:174) [restx-core-0.33.1.jar:na]
+	at restx.RestxMainRouterFactory$CompilationManagerRouter.route(RestxMainRouterFactory.java:326) [restx-core-0.33.1.jar:na]
+	at restx.servlet.AbstractRestxMainRouterServlet.service(AbstractRestxMainRouterServlet.java:48) [restx-servlet-0.33.1.jar:na]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:770) [javax.servlet-api-3.0.1.jar:3.0.1]
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:669) [jetty-servlet-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:455) [jetty-servlet-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:536) [jetty-security-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:231) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1072) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:382) [jetty-servlet-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1006) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.handler.HandlerList.handle(HandlerList.java:52) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.handler.HandlerCollection.handle(HandlerCollection.java:154) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.Server.handle(Server.java:365) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:485) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.AbstractHttpConnection.content(AbstractHttpConnection.java:937) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content(AbstractHttpConnection.java:998) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:856) [jetty-http-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:240) [jetty-http-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82) [jetty-server-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:628) [jetty-io-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:52) [jetty-io-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608) [jetty-util-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543) [jetty-util-8.1.8.v20121106.jar:8.1.8.v20121106]
+	at java.lang.Thread.run(Thread.java:745) [na:1.7.0_67]
+2014-10-28 17:01:20,258 [qtp1946664668-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> INTERNAL_SERVER_ERROR - 56,04 ms
+2014-10-28 17:01:40,314 [qtp1946664668-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 7,788 ms
+2014-10-28 17:01:44,590 [qtp1946664668-32] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 114,9 ms
+2014-10-28 17:02:11,330 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 9,616 ms
+2014-10-28 17:02:18,312 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 167,0 ms
+2014-10-28 17:02:22,193 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 119,2 ms
+2014-10-28 17:02:43,871 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 199,5 ms
+2014-10-28 17:02:46,163 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 151,8 ms
+2014-10-28 17:04:07,299 [qtp1946664668-39] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 130,2 ms
+2014-10-28 17:04:12,920 [qtp1946664668-41] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 163,3 ms
+2014-10-28 17:16:39,325 [qtp1946664668-54] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 613,0 ms
+2014-10-28 17:16:42,068 [qtp1946664668-54] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 145,8 ms
+2014-10-29 00:01:28,540 [qtp1946664668-141] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 370,9 ms
+2014-10-29 00:01:28,807 [qtp1946664668-142] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 1,573 ms
+2014-10-29 00:03:52,776 [qtp1946664668-144] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 210,3 ms
+2014-10-29 00:04:04,451 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-29 00:04:11,865 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-29 00:04:12,604 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-29 00:04:12,606 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-29 00:04:12,659 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-29 00:04:13,023 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-29 00:04:13,059 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-29 00:04:14,181 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-29 00:04:14,291 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-29 00:04:39,739 [qtp1841199413-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-29 00:04:39,874 [qtp1841199413-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 374,3 ms
+2014-10-29 00:04:39,972 [qtp1841199413-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 97,55 ms
+2014-10-29 00:04:48,577 [qtp1841199413-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 8,705 ms
+2014-10-29 00:04:56,363 [qtp1841199413-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 577,3 ms
+2014-10-29 00:04:59,448 [qtp1841199413-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 137,9 ms
+2014-10-29 00:12:21,914 [qtp1841199413-31] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 1,140 s
+2014-10-29 00:12:31,210 [qtp1841199413-31] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 250,3 ms
+2014-10-29 00:12:59,644 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-29 19:47:44,119 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-29 19:47:44,816 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-29 19:47:44,817 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-29 19:47:44,873 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-29 19:47:45,153 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-29 19:47:45,190 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-29 19:47:46,313 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-29 19:47:46,425 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-29 19:49:05,699 [qtp1946664668-22] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-29 19:49:05,821 [qtp1946664668-22] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 349,8 ms
+2014-10-29 19:49:05,898 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 76,67 ms
+2014-10-29 19:50:20,787 [qtp1946664668-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 9,657 ms
+2014-10-29 19:50:21,027 [qtp1946664668-23] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 1,086 ms
+2014-10-29 19:53:59,236 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-29 19:54:01,610 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-29 19:54:02,406 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-29 19:54:02,406 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-29 19:54:02,442 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-29 19:54:02,795 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-29 19:54:02,829 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-29 19:54:03,910 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-29 19:54:03,961 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-29 19:54:13,905 [qtp1946664668-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-29 19:54:13,988 [qtp1946664668-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 284,7 ms
+2014-10-29 19:54:14,057 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 68,22 ms
+2014-10-29 19:54:20,981 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 7,305 ms
+2014-10-29 19:54:30,853 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 2,715 s
+2014-10-29 19:54:44,152 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 5,125 s
+2014-10-29 19:54:45,496 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 11,63 ms
+2014-10-29 19:55:09,168 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 281,7 ms
+2014-10-29 19:55:14,027 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 276,1 ms
+2014-10-29 23:56:38,905 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-30 20:01:38,457 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-30 20:01:39,141 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-30 20:01:39,142 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-30 20:01:39,198 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 20:01:39,467 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 20:01:39,505 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-30 20:01:40,390 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-30 20:01:40,493 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-30 20:02:17,960 [qtp1946664668-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-30 20:02:18,086 [qtp1946664668-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] GET /registered - per request factory created in 355,8 ms
+2014-10-30 20:02:18,100 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 13,71 ms
+2014-10-30 20:02:18,282 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 1,011 ms
+2014-10-30 20:07:07,942 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-30 20:07:11,747 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-30 20:07:12,305 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-30 20:07:12,305 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-30 20:07:12,338 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 20:07:12,567 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 20:07:12,595 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-30 20:07:20,451 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - sharing stats on http://stats.restx.io/api/v1/stats failed. Exception: java.net.SocketTimeoutException: Read timed out
+2014-10-30 20:07:20,466 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-30 20:07:20,502 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-30 20:07:47,845 [qtp679713031-20 ] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-30 20:07:47,935 [qtp679713031-20 ] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] GET /registered - per request factory created in 294,6 ms
+2014-10-30 20:07:47,948 [qtp679713031-20 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 12,03 ms
+2014-10-30 20:07:48,206 [qtp679713031-21 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 949,0 μs
+2014-10-30 20:10:38,188 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-30 20:13:57,251 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-30 20:13:57,866 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-30 20:13:57,867 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-30 20:13:57,900 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 20:13:58,170 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 20:13:58,203 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-30 20:14:16,901 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - sharing stats on http://stats.restx.io/api/v1/stats failed. Exception: java.net.UnknownHostException: stats.restx.io
+2014-10-30 20:14:16,949 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-30 20:14:17,019 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-30 21:10:19,430 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-30 21:15:40,353 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.y.z-SNAPSHOT
+2014-10-30 21:15:40,575 [main            ] [          ] WARN  / - unavailable
+java.lang.IllegalStateException: component of class interface restx.AppSettings not found
+	at restx.common.MorePreconditions.checkPresent(MorePreconditions.java:19) ~[PTCServer.jar:na]
+	at restx.factory.Factory.getComponent(Factory.java:798) ~[PTCServer.jar:na]
+	at restx.RestxMainRouterFactory.newInstance(RestxMainRouterFactory.java:58) ~[PTCServer.jar:na]
+	at restx.servlet.RestxMainRouterServlet.init(RestxMainRouterServlet.java:67) ~[PTCServer.jar:na]
+	at org.eclipse.jetty.servlet.ServletHolder.initServlet(ServletHolder.java:519) [PTCServer.jar:na]
+	at org.eclipse.jetty.servlet.ServletHolder.doStart(ServletHolder.java:331) [PTCServer.jar:na]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [PTCServer.jar:na]
+	at org.eclipse.jetty.servlet.ServletHandler.initialize(ServletHandler.java:747) [PTCServer.jar:na]
+	at org.eclipse.jetty.servlet.ServletContextHandler.startContext(ServletContextHandler.java:265) [PTCServer.jar:na]
+	at org.eclipse.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1250) [PTCServer.jar:na]
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:706) [PTCServer.jar:na]
+	at org.eclipse.jetty.webapp.WebAppContext.doStart(WebAppContext.java:492) [PTCServer.jar:na]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [PTCServer.jar:na]
+	at org.eclipse.jetty.server.handler.HandlerCollection.doStart(HandlerCollection.java:229) [PTCServer.jar:na]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [PTCServer.jar:na]
+	at org.eclipse.jetty.server.handler.HandlerCollection.doStart(HandlerCollection.java:229) [PTCServer.jar:na]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [PTCServer.jar:na]
+	at org.eclipse.jetty.server.handler.HandlerWrapper.doStart(HandlerWrapper.java:95) [PTCServer.jar:na]
+	at org.eclipse.jetty.server.Server.doStart(Server.java:277) [PTCServer.jar:na]
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [PTCServer.jar:na]
+	at restx.server.JettyWebServer.start(JettyWebServer.java:113) [PTCServer.jar:na]
+	at restx.server.JettyWebServer.startAndAwait(JettyWebServer.java:118) [PTCServer.jar:na]
+	at myapp.AppServer.main(AppServer.java:34) [PTCServer.jar:na]
+2014-10-30 21:16:40,745 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-30 21:16:41,247 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-30 21:16:41,248 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-30 21:16:41,279 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 21:16:41,520 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 21:16:41,563 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-30 21:16:42,326 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-30 21:16:42,368 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-30 21:16:50,028 [qtp230740782-21 ] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-30 21:16:50,124 [qtp230740782-21 ] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] GET /registered - per request factory created in 278,7 ms
+2014-10-30 21:16:50,135 [qtp230740782-21 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 10,64 ms
+2014-10-30 21:16:50,300 [qtp230740782-21 ] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 916,0 μs
+2014-10-30 21:26:52,585 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-30 21:38:29,158 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-30 21:38:29,851 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-30 21:38:29,852 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-30 21:38:29,905 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 21:38:30,273 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-30 21:38:30,313 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-30 21:38:31,253 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-30 21:38:31,355 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-30 21:47:41,434 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced
+2014-10-31 10:48:04,627 [main            ] [          ] INFO  org.eclipse.jetty.server.Server - jetty-8.1.8.v20121106
+2014-10-31 10:48:05,322 [main            ] [          ] INFO  restx.RestxMainRouterFactory - LOADING MAIN ROUTER
+2014-10-31 10:48:05,322 [main            ] [          ] INFO  restx.RestxMainRouterFactory - 
+--------------------------------------
+ -- RESTX >> LOAD ON REQUEST << >> DEV MODE << >> AUTO COMPILE <<
+ -- for admin console,
+ --   VISIT http://127.0.0.1:8080/@/ui/
+ --
+
+2014-10-31 10:48:05,379 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-31 10:48:05,656 [main            ] [          ] INFO  restx.Apps - can't enable Apidocs doclet: make sure tools.jar is in your classpath
+2014-10-31 10:48:05,694 [main            ] [          ] INFO  restx.classloader.CompilationManager - watching for changes in [src/main/java, src/main/resources]; current location is /Users/davilag/Proyecto/Servidor/myapp/.
+2014-10-31 10:48:07,731 [main            ] [          ] INFO  restx.monitor.MetricsConfiguration - registering Metrics JVM metrics
+2014-10-31 10:48:07,844 [main            ] [          ] INFO  restx.stats.RestxStatsCollector - collecting and sharing stats enabled - see http://restx.io/stats.html for details.
+2014-10-31 10:48:15,123 [qtp1946664668-21] [          ] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.0.1.Final
+2014-10-31 10:48:15,265 [qtp1946664668-21] [          ] INFO  restx.RestxMainRouterFactory - [RESTX REQUEST] POST /register - per request factory created in 372,8 ms
+2014-10-31 10:48:15,349 [qtp1946664668-21] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 83,52 ms
+2014-10-31 10:49:54,850 [qtp1946664668-22] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 22,97 ms
+2014-10-31 10:51:13,692 [qtp1946664668-24] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 7,650 ms
+2014-10-31 11:01:46,426 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 348,2 ms
+2014-10-31 11:02:00,068 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 7,012 ms
+2014-10-31 11:02:00,165 [qtp1946664668-35] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /favicon.ico >> NOT_FOUND - 1,157 ms
+2014-10-31 11:02:23,276 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /register >> OK - 11,55 ms
+2014-10-31 11:02:33,377 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 1,052 s
+2014-10-31 11:02:36,812 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 169,1 ms
+2014-10-31 11:02:55,597 [qtp1946664668-37] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 131,5 ms
+2014-10-31 11:03:01,892 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 179,7 ms
+2014-10-31 11:03:13,649 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 150,2 ms
+2014-10-31 11:03:28,809 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /askforpass >> OK - 231,6 ms
+2014-10-31 11:03:38,452 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] POST /response >> OK - 197,4 ms
+2014-10-31 11:04:09,759 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 6,172 ms
+2014-10-31 11:04:16,288 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /registered >> OK - 4,534 ms
+2014-10-31 11:04:20,569 [qtp1946664668-34] [          ] INFO  restx.StdRestxMainRouter - << [RESTX REQUEST] GET /requests >> OK - 4,605 ms
+2014-10-31 11:30:56,356 [Thread-1        ] [          ] INFO  o.e.jetty.util.thread.ShutdownThread - shutdown already commenced

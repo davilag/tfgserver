@@ -1,8 +1,9 @@
-2014-10-24 11:08:32,349 [qtp378449674-55 ] [          ] ERROR restx.StdRestxMainRouter - request raised NoSuchMethodError: myapp.Registered.addUser(Ljava/lang/String;Ljava/lang/String;)V
-java.lang.NoSuchMethodError: myapp.Registered.addUser(Ljava/lang/String;Ljava/lang/String;)V
-	at myapp.rest.PTCResource.register(PTCResource.java:66) ~[na:na]
-	at myapp.rest.PTCResourceRouter$2.doRoute(PTCResourceRouter.java:78) ~[na:na]
-	at myapp.rest.PTCResourceRouter$2.doRoute(PTCResourceRouter.java:74) ~[na:na]
+2014-10-28 17:01:20,251 [qtp1946664668-32] [          ] ERROR restx.StdRestxMainRouter - request raised NullPointerException: null
+java.lang.NullPointerException: null
+	at myapp.Registered.hasRegId(Registered.java:97) ~[bin/:na]
+	at myapp.rest.HelloResource.askForPass(HelloResource.java:203) ~[bin/:na]
+	at myapp.rest.HelloResourceRouter$3.doRoute(HelloResourceRouter.java:109) ~[na:na]
+	at myapp.rest.HelloResourceRouter$3.doRoute(HelloResourceRouter.java:105) ~[na:na]
 	at restx.entity.StdEntityRoute.handle(StdEntityRoute.java:139) ~[restx-core-0.33.1.jar:na]
 	at restx.RestxHandlerMatch.handle(RestxHandlerMatch.java:56) ~[restx-core-0.33.1.jar:na]
 	at restx.ResponseCloserFilter.handle(ResponseCloserFilter.java:28) ~[restx-core-0.33.1.jar:na]

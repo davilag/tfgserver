@@ -104,7 +104,7 @@ public class HelloResource {
 		wr.close();
 		
 		int responseCode = con.getResponseCode();
-		System.out.println("\nEnviando mensaje de peticion a los containers.");
+		System.out.println("\nEnviando mensaje a los requesters.");
 		System.out.println("Response code: "+responseCode);
 	}
     /**

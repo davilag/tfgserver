@@ -1,9 +1,0 @@
-package myapp.domain;
-
-import myapp.Globals;
-
-public class GCMRegisteredResponse extends GCMMessage {
-	public GCMRegisteredResponse(){
-		this.addData("", Globals.ACTION_REGISTERED);s
-	}
-}
