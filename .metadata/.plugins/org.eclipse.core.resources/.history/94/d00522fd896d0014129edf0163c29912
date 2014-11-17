@@ -1,0 +1,43 @@
+package es.david.ptctest;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Set;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Path("/register")
+public class RegisterResources {
+	Integer x = 0;
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String sayPlainTextHello() {
+		return "Solo queria decirte que te quiero con locura y que me haces la persona mas feliz del mundo!! <3";
+	}
+		
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	public String registrar(String body){
+		System.out.println(body);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			Message m = mapper.readValue(body, Message.class);
+			Set<String> keys = m.keySet();
+			Iterator<String> it = keys.iterator();
+			while(it.hasNext()){
+				String key = it.next();
+				System.out.println(key+": "+m.value(key));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "true";
+	}
+}

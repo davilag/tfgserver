@@ -8,6 +8,7 @@ public class Globals {
     public static final String MSG_DOMAIN = "dominio";
     public static final String MSG_PASSWD = "password";
     public static final String MSG_REG_ID = "reg_id";
+    public static final String MSG_REQ_ID = "req_id";
     public static final String GCM_URL = "https://android.googleapis.com/gcm/send";
 
     //Constantes para las acciones de GCM

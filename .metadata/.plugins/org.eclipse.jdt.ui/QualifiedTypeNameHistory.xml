@@ -4,7 +4,6 @@
 <fullyQualifiedTypeName name="myapp.AppServer"/>
 <fullyQualifiedTypeName name="myapp.domain.MessageRegistered"/>
 <fullyQualifiedTypeName name="restx.annotations.POST"/>
-<fullyQualifiedTypeName name="myapp.Registered"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="myapp.GCMData"/>
@@ -12,7 +11,6 @@
 <fullyQualifiedTypeName name="es.david.httptest.GCMData"/>
 <fullyQualifiedTypeName name="es.david.httptest.Message"/>
 <fullyQualifiedTypeName name="myapp.domain.Message"/>
-<fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
 <fullyQualifiedTypeName name="myapp.Globals"/>
 <fullyQualifiedTypeName name="javax.net.ssl.HttpsURLConnection"/>
 <fullyQualifiedTypeName name="myapp.domain.GCMMessage"/>
@@ -21,6 +19,20 @@
 <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectWriter"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
 <fullyQualifiedTypeName name="java.io.DataOutputStream"/>
-<fullyQualifiedTypeName name="myapp.Requests"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.concurrent.atomic.AtomicInteger"/>
+<fullyQualifiedTypeName name="myapp.Requests"/>
+<fullyQualifiedTypeName name="myapp.Registered"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Path"/>
+<fullyQualifiedTypeName name="javax.ws.rs.GET"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
+<fullyQualifiedTypeName name="javax.ws.rs.POST"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="javassist.bytecode.Descriptor.Iterator"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.Globals"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.Message"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.UtilMessage"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.Requests"/>
 </qualifiedTypeNameHistroy>

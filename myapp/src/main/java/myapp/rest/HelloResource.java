@@ -55,7 +55,7 @@ public class HelloResource {
 	 * Método que envia un mensaje de petición a los containers que tiene cada usuario registrado en 
 	 * la plataforma.
 	 */
-	private void sendRequestMessage(String[] usersIds,String mail,String dominio) throws Exception{
+	private void sendRequestMessage(String[] usersIds,String mail,String dominio,Integer reqId ) throws Exception{
 		URL obj = new URL(Globals.GCM_URL);
 		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
@@ -67,6 +67,7 @@ public class HelloResource {
 		gcmdata.addData(Globals.MSG_ACTION,Globals.ACTION_REQUEST);
 		gcmdata.addData(Globals.MSG_MAIL, mail);
 		gcmdata.addData(Globals.MSG_DOMAIN, dominio);
+		gcmdata.addData(Globals.MSG_REQ_ID,reqId.toString());
 		
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -82,7 +83,33 @@ public class HelloResource {
 	/*
 	 * Mensaje que se envia desde el servidor a un requester cuando este ha hecho una peticion anteriormente.
 	 */
-	private void sendResponseMessage(String userId,String mail,String dominio,String pass) throws Exception{
+//	private void sendResponseMessage(String userId,String mail,String dominio,String pass) throws Exception{
+//		URL obj = new URL(Globals.GCM_URL);
+//		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+//		con.setRequestMethod("POST");
+//		con.setRequestProperty("Content-Type", "application/json");
+//		con.setRequestProperty("Authorization", "key=AIzaSyBazwPhhD0N6ddh3Ph0IK59kKOrFjBixZY");
+//		
+//		ObjectMapper om = new ObjectMapper();
+//		String[] usersIds = {userId};
+//		GCMMessage gcmdata = new GCMMessage(usersIds);
+//		gcmdata.addData(Globals.MSG_ACTION,Globals.ACTION_RESPONSE);
+//		gcmdata.addData(Globals.MSG_MAIL, mail);
+//		gcmdata.addData(Globals.MSG_DOMAIN, dominio);
+//		gcmdata.addData(Globals.MSG_PASSWD,pass);
+//		
+//		con.setDoOutput(true);
+//		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+//		om.writeValue(wr, gcmdata);
+//		wr.flush();
+//		wr.close();
+//		
+//		int responseCode = con.getResponseCode();
+//		System.out.println("\nEnviando mensaje a los requesters.");
+//		System.out.println("Response code: "+responseCode);
+//	}
+//	
+	private void sendClearNotif(String[] userId,String mail,String dominio,String pass, Integer reqId) throws Exception{
 		URL obj = new URL(Globals.GCM_URL);
 		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
@@ -90,12 +117,12 @@ public class HelloResource {
 		con.setRequestProperty("Authorization", "key=AIzaSyBazwPhhD0N6ddh3Ph0IK59kKOrFjBixZY");
 		
 		ObjectMapper om = new ObjectMapper();
-		String[] usersIds = {userId};
-		GCMMessage gcmdata = new GCMMessage(usersIds);
-		gcmdata.addData(Globals.MSG_ACTION,Globals.ACTION_RESPONSE);
+		GCMMessage gcmdata = new GCMMessage(userId);
+		gcmdata.addData(Globals.MSG_ACTION,Globals.ACTION_CLEARNOTIF);
 		gcmdata.addData(Globals.MSG_MAIL, mail);
 		gcmdata.addData(Globals.MSG_DOMAIN, dominio);
 		gcmdata.addData(Globals.MSG_PASSWD,pass);
+		gcmdata.addData(Globals.MSG_REQ_ID,reqId.toString());
 		
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -136,7 +163,7 @@ public class HelloResource {
     @PermitAll
     public Boolean register(Message message) {
     	System.out.println(message);
-		registered = new Registered(fichRegistered);
+		registered = Registered.singleton(fichRegistered);
 		try {
 			registered.backupUsers();
 		} catch (IOException e1) {
@@ -182,16 +209,9 @@ public class HelloResource {
      */
     @POST("/askforpass")
     @PermitAll
-    public Boolean askForPass(Message message){
-    	registered = new Registered(fichRegistered);
-    	requests = new Requests(fichRequests);
-    	try {
-			registered.backupUsers();
-			requests.backupRequests();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public String askForPass(Message message){
+    	registered = Registered.singleton(fichRegistered);
+    	requests = Requests.singleton(fichRequests);
     	System.out.println("Mensaje de peticion:");
     	Set<String> keys = message.keySet();
     	for(String s: keys){
@@ -201,37 +221,36 @@ public class HelloResource {
     	String regId = message.value(Globals.MSG_REG_ID);
     	String dominio = message.value(Globals.MSG_DOMAIN);
     	if(registered.hasRegId(Globals.ACTION_REQUESTER, mail, regId)){
+    		String pass = null;
+    		Integer reqId = null;
     		//Añadimos a la lista de peticiones pendientes.
     		try {
+    			reqId = requests.getRequestId();
 				requests.addRequest(mail,dominio,regId);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} 
     		String[] containers = registered.containers(mail);
     		try {
-				sendRequestMessage(containers, mail, dominio);
-				return true;
+				sendRequestMessage(containers, mail, dominio,reqId);
+				if(reqId!=null)
+					pass = requests.getPass(reqId);
+				return pass;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+    		
     	}
-    	return false;
+    	return null;
     }
     
     @POST("/response")
     @PermitAll
     public Boolean responsePass(Message message){
-    	registered = new Registered(fichRegistered);
-    	requests = new Requests(fichRequests);
-    	try {
-			registered.backupUsers();
-			requests.backupRequests();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	registered = Registered.singleton(fichRegistered);
+    	requests = Requests.singleton(fichRequests);
     	System.out.println("Mensaje de respuesta:");
     	Set<String> keys = message.keySet();
     	for(String s: keys){
@@ -240,12 +259,17 @@ public class HelloResource {
     	String mail = message.value(Globals.MSG_MAIL);
     	String dominio = message.value(Globals.MSG_DOMAIN);
     	String pass = message.value(Globals.MSG_PASSWD);
+    	String regId = message.value(Globals.MSG_REG_ID);
+    	Integer reqId = Integer.parseInt(message.value(Globals.MSG_REQ_ID));
     	try {
-			String regresponse = requests.removeRequest(mail, dominio);
+			String regresponse = requests.removeRequest(mail, dominio,pass,reqId);
 			if(regresponse!=null){
 				System.out.println("Existe la peticion");
-				sendResponseMessage(regresponse, mail, dominio, pass);
+//				sendResponseMessage(regresponse, mail, dominio, pass);
+				requests.removeRequest(mail, dominio, pass, reqId);
 				System.out.println("Mensaje enviado con exito");
+				String[] regIdsClear = registered.getClearNotifIds(mail, regId);
+				sendClearNotif(regIdsClear, mail, dominio, pass,reqId);
 				return true;
 			}
 		} catch (IOException e) {
@@ -266,15 +290,7 @@ public class HelloResource {
     @GET("/registered")
     @PermitAll
     public String getRegistered() throws JsonProcessingException{
-    	if(registered == null){
-    		registered = new Registered(fichRegistered);
-    		try {
-				registered.backupUsers();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+    	registered = Registered.singleton(fichRegistered);
     	HashMap<String,LinkedHashMap<String,ArrayList<String>>> registrados = registered.getRegistered();
 
 	    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -284,15 +300,7 @@ public class HelloResource {
     @GET("/requests")
     @PermitAll
     public String getRequests() throws JsonProcessingException{
-    	if(requests == null){
-    		requests = new Requests(fichRequests);
-    		try {
-				requests.backupRequests();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+    	requests = Requests.singleton(fichRequests);
     	HashMap<String,HashMap<String,String>> peticiones = requests.getPendingRequests();
 
 	    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();

@@ -1,0 +1,8 @@
+package es.david.ptctest;
+
+import javax.ws.rs.Path;
+
+@Path("/askforpass")
+public class AskForPassResources {
+
+}

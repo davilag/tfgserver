@@ -98,13 +98,13 @@ public class HelloResourceRouter extends RestxRouter {
                 operation.sourceLocation = "myapp.rest.HelloResource#register(myapp.domain.Message)";
             }
         },
-        new StdEntityRoute<myapp.domain.Message, java.lang.Boolean>("default#HelloResource#askForPass",
+        new StdEntityRoute<myapp.domain.Message, java.lang.String>("default#HelloResource#askForPass",
                 readerRegistry.<myapp.domain.Message>build(myapp.domain.Message.class, Optional.<String>absent()),
-                writerRegistry.<java.lang.Boolean>build(java.lang.Boolean.class, Optional.<String>absent()),
+                writerRegistry.<java.lang.String>build(java.lang.String.class, Optional.<String>absent()),
                 new StdRestxRequestMatcher("POST", "/askforpass"),
                 HttpStatus.OK, RestxLogLevel.DEFAULT) {
             @Override
-            protected Optional<java.lang.Boolean> doRoute(RestxRequest request, RestxRequestMatch match, myapp.domain.Message body) throws IOException {
+            protected Optional<java.lang.String> doRoute(RestxRequest request, RestxRequestMatch match, myapp.domain.Message body) throws IOException {
                 securityManager.check(request, open());
                 return Optional.of(resource.askForPass(
                         /* [BODY] message */ checkValid(validator, body)
@@ -123,7 +123,7 @@ public class HelloResourceRouter extends RestxRouter {
                 operation.parameters.add(message);
 
 
-                operation.responseClass = "boolean";
+                operation.responseClass = "string";
                 operation.inEntitySchemaKey = "myapp.domain.Message";
                 operation.outEntitySchemaKey = "";
                 operation.sourceLocation = "myapp.rest.HelloResource#askForPass(myapp.domain.Message)";

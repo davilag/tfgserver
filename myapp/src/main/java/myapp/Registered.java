@@ -13,6 +13,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Clase para almacenar las regIds que han dado de alta los diferentes usuarios del servicio.
  */
 public class Registered {
+
+	static private Registered single;
+	static public synchronized Registered singleton(String nfich) {
+		if(single == null){
+			single = new Registered(nfich);
+		}
+		return single;
+	}
+	
 	private String file;
 	private HashMap<String,LinkedHashMap<String,ArrayList<String>>> registered;
 	
@@ -22,6 +31,12 @@ public class Registered {
 	public Registered(String file){
 		this.file =file;
 		this.registered = new HashMap<String,LinkedHashMap<String,ArrayList<String>>>();
+		try {
+			backupUsers();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -87,7 +102,18 @@ public class Registered {
 		containers.toArray(ret);
 		return ret;
 	}
-	
+	public synchronized String[] getClearNotifIds(String mail,String regId){
+		ArrayList<String> containers = this.registered.get(mail).get(Globals.CONTAINERS_IDS);
+		String[] ret = new String[containers.size()-1];
+		int i = 0;
+		for(String s: containers){
+			if(!s.equals(regId)){
+				ret[i] = s;
+				i++;
+			}
+		}
+		return ret;
+	}
 	public synchronized boolean hasRegId(String role, String mail, String regId){
 		HashMap<String,ArrayList<String>> user = this.registered.get(mail);
 		if(Globals.ACTION_CONTAINER.equals(role)){
@@ -98,5 +124,10 @@ public class Registered {
 			return requesters.contains(regId);
 		}
 		return false;
+	}
+	
+	private int cont;
+	public String getNumber() {
+		return (new Integer(cont++)).toString();
 	}
 }
