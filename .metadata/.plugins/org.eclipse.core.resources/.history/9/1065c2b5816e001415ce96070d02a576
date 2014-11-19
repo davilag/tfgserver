@@ -1,0 +1,23 @@
+package es.david.ptctest;
+
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import es.david.ptctest.util.UtilMessage;
+
+@Path("/getURLs")
+public class GetUrlsResources {
+	
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getURLs(String body){
+		System.out.println(body);
+		Message message = UtilMessage.stringToMessage(body);
+		if(message != null){
+			
+		}
+		return "[]";
+	}
+}

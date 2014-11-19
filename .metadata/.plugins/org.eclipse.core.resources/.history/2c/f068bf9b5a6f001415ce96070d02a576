@@ -1,0 +1,25 @@
+package es.david.httptest;
+
+public class Usuario {
+	private ArrayList<Container> containers;
+	private ArrayList<Requester>requesters;
+	
+	public Usuario(){
+		containers = new String[2];
+		requesters = new String[]
+	}
+	public String[] getContainers() {
+		return containers;
+	}
+	public void setContainers(String[] containers) {
+		this.containers = containers;
+	}
+	public String[] getRequesters() {
+		return requesters;
+	}
+	public void setRequesters(String[] requesters) {
+		this.requesters = requesters;
+	}
+	
+	
+}

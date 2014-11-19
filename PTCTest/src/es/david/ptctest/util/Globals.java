@@ -19,6 +19,7 @@ public class Globals {
     public static final String ACTION_REQUEST = "request";
     public static final String ACTION_RESPONSE = "response";
     public static final String ACTION_CLEARNOTIF = "clear_notification";
+    public static final String ACTION_GET_URLS = "get_urls";
     
     public static final String CONTAINERS_IDS = "containers_ids";
     public static final String REQUESTER_IDS = "requester_ids";

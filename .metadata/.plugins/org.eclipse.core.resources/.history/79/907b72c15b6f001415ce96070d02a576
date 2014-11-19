@@ -1,0 +1,13 @@
+package es.david.httptest;
+
+import java.util.HashMap;
+
+public class PruebaJson {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		HashMap<String,Usuario> users = new HashMap<String,Usuario>();
+		
+	}
+
+}

@@ -96,7 +96,7 @@ public class AskForPassResources {
 	    		try {
 					sendRequestMessage(containers, mail, dominio,reqId);
 					if(reqId!=null)
-						pass = requests.getPass(reqId);
+						pass = requests.getResponse(reqId);
 					return pass;
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

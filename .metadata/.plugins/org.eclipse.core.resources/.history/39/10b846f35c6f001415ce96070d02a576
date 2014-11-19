@@ -1,0 +1,42 @@
+package es.david.httptest;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
+public class PruebaJson {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		HashMap<String,Usuario> users = new HashMap<String,Usuario>();
+		for (int i = 0; i<10; i++){
+			Usuario u = new Usuario();
+			u.setUsername("usuario"+i);
+			u.addContainer("regId"+i, "serverKey"+i);
+			u.addRequester("hostname"+i);
+			users.put("usuario"+i, u);
+		}
+		ObjectWriter ow = new ObjectMapper().writer();
+		File f = new File("/tmp/prueba.json");
+		try {
+			if(!f.exists())
+			f.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			System.out.println(ow.writeValueAsString(users));
+			ow.writeValue(f, users);
+		} catch ( IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

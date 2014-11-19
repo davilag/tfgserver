@@ -86,7 +86,7 @@ public class Requests {
 		return regId;
 	}
 	
-	public synchronized String getPass(Integer requestId) throws InterruptedException{
+	public synchronized String getResponse(Integer requestId) throws InterruptedException{
 		while(!pendingResponses.containsKey(requestId)){
 			wait();
 		}
