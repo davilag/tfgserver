@@ -24,7 +24,7 @@ public class ResponseResource {
 	private Registered registered;
 	private Requests requests;
 	
-	private void sendClearNotif(String[] userId,String mail,String dominio,String pass, Integer reqId) throws Exception{
+	private void sendClearNotif(String[] userId,String mail,String dominio,String pass, String reqId) throws Exception{
 		URL obj = new URL(Globals.GCM_URL);
 		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
@@ -37,7 +37,7 @@ public class ResponseResource {
 		gcmdata.addData(Globals.MSG_MAIL, mail);
 		gcmdata.addData(Globals.MSG_DOMAIN, dominio);
 		gcmdata.addData(Globals.MSG_PASSWD,pass);
-		gcmdata.addData(Globals.MSG_REQ_ID,reqId.toString());
+		gcmdata.addData(Globals.MSG_REQ_ID,reqId);
 		
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -66,15 +66,15 @@ public class ResponseResource {
 	    	}
 	    	String mail = message.value(Globals.MSG_MAIL);
 	    	String dominio = message.value(Globals.MSG_DOMAIN);
+	    	String user = message.value(Globals.MSG_USER);
 	    	String pass = message.value(Globals.MSG_PASSWD);
 	    	String regId = message.value(Globals.MSG_REG_ID);
-	    	Integer reqId = Integer.parseInt(message.value(Globals.MSG_REQ_ID));
+	    	String reqId = message.value(Globals.MSG_REQ_ID);
 	    	try {
-				String regresponse = requests.removeRequest(mail, dominio,pass,reqId);
-				if(regresponse!=null){
+				boolean regresponse = requests.removeRequest(mail, user,pass,reqId,dominio);
+				if(regresponse){
 					System.out.println("Existe la peticion");
 //					sendResponseMessage(regresponse, mail, dominio, pass);
-					requests.removeRequest(mail, dominio, pass, reqId);
 					System.out.println("Mensaje enviado con exito");
 					String[] regIdsClear = registered.getClearNotifIds(mail, regId);
 					sendClearNotif(regIdsClear, mail, dominio, pass,reqId);

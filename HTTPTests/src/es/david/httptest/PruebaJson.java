@@ -16,8 +16,9 @@ public class PruebaJson {
 		for (int i = 0; i<10; i++){
 			Usuario u = new Usuario();
 			u.setUsername("usuario"+i);
+			u.setServerKey("serverKey"+i);
 			for(int j = 0; j<5; j++){
-				u.addContainer("regId"+i+""+j, "serverKey"+i+""+j);
+				u.addContainer("regId"+i+""+j);
 			}
 			u.addRequester("hostname"+i);
 			users.put("usuario"+i, u);
@@ -51,7 +52,11 @@ public class PruebaJson {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println("Prueba string aleatorios");
+		for (int i=0; i<10;i ++){
+			RandomString rs = new RandomString(10);
+			System.out.println(rs.nextString());
+		}
 		
 	}
 

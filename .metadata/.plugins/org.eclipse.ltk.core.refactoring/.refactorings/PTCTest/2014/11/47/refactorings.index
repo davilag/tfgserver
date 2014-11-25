@@ -1,3 +1,7 @@
 1416246863590	Rename field 'pendingResponses'
 1416246923560	Rename field 'pendingResponsesPass'
 1416246938863	Rename method 'getPass'
+1416652633044	Rename local variable 'regId'
+1416652860746	Rename local variable 'mail'
+1416653537244	Rename method 'hasRegId'
+1416674369857	Delete element

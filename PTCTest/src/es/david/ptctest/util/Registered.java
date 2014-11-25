@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Set;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /*
@@ -23,14 +23,14 @@ public class Registered {
 	}
 	
 	private String file;
-	private HashMap<String,LinkedHashMap<String,ArrayList<String>>> registered;
+	private HashMap<String,Usuario> registered;
 	
 	public Registered(){
-		this.registered = new HashMap<String,LinkedHashMap<String,ArrayList<String>>>();
+		this.registered = new HashMap<String,Usuario>();
 	}
 	public Registered(String file){
 		this.file =file;
-		this.registered = new HashMap<String,LinkedHashMap<String,ArrayList<String>>>();
+		this.registered = new HashMap<String,Usuario>();
 		try {
 			backupUsers();
 		} catch (IOException e) {
@@ -39,36 +39,40 @@ public class Registered {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public synchronized void backupUsers() throws IOException{
 		File fich = new File(file);
 		if(fich.exists()){
 			ObjectMapper om = new ObjectMapper();
-			registered = om.readValue(fich, HashMap.class);
+			TypeReference<HashMap<String,Usuario>> tr = new TypeReference<HashMap<String,Usuario>>() {
+			};
+			registered = om.readValue(fich, tr);
 		}
 	}
-	public synchronized boolean addRegId(String mail, String regId,String role) throws Exception{
-		LinkedHashMap<String,ArrayList<String>> user = registered.get(mail);
+	public synchronized boolean addRegId(String username, String identificador,String role,String serverKey) throws Exception{
+		Usuario user = registered.get(username);
 		boolean reg = false;
 		if(user!=null){
-			if(role.equals(Globals.ACTION_REQUESTER)){
-				reg = user.get(Globals.REQUESTER_IDS).add(regId);
-			}else if(role.equals(Globals.ACTION_CONTAINER)){
-				reg = user.get(Globals.CONTAINERS_IDS).add(regId);
+			if(serverKey.equals(user.getServerKey())){
+				if(role.equals(Globals.ACTION_REQUESTER)){
+					reg = user.addRequester(identificador);
+				}else if(role.equals(Globals.ACTION_CONTAINER)){
+					reg = user.addContainer(identificador);
+				}
 			}
+			
 		}else{
-			user = new LinkedHashMap<String,ArrayList<String>>();
-			user.put(Globals.CONTAINERS_IDS, new ArrayList<String>());
-			user.put(Globals.REQUESTER_IDS, new ArrayList<String>());
-			if(role.equals(Globals.ACTION_REQUESTER)){
-				reg = user.get(Globals.REQUESTER_IDS).add(regId);
-			}else if(role.equals(Globals.ACTION_CONTAINER)){
-				reg = user.get(Globals.CONTAINERS_IDS).add(regId);
+			if(role.equals(Globals.ACTION_CONTAINER)){
+				user = new Usuario();
+				user.setServerKey(serverKey);
+				user.setUsername(username);
+				reg = user.addContainer(identificador);
 			}
 		}
-		registered.put(mail, user);
+		if(user!=null)
+			registered.put(username, user);
 		ObjectMapper om = new ObjectMapper();
 		om.writeValue(new File(file), registered);
+		System.out.println("Reg es false");
 		return reg;
 	}
 	
@@ -78,8 +82,8 @@ public class Registered {
 	public void setFile(String file) {
 		this.file = file;
 	}
-	public HashMap<String,LinkedHashMap<String,ArrayList<String>>> getRegistered() {
-		HashMap<String,LinkedHashMap<String,ArrayList<String>>> hashRet = new HashMap<String,LinkedHashMap<String,ArrayList<String>>>();
+	public HashMap<String,Usuario> getRegistered() {
+		HashMap<String,Usuario> hashRet = new HashMap<String,Usuario>();
 		Set<String> keys = this.registered.keySet();
 		for(String s: keys){
 			hashRet.put(s, this.registered.get(s));
@@ -87,7 +91,7 @@ public class Registered {
 		
 		return hashRet;
 	}
-	public void setRegistered(HashMap<String,LinkedHashMap<String,ArrayList<String>>> registered) throws Exception{
+	public void setRegistered(HashMap<String,Usuario> registered) throws Exception{
 		this.registered = registered;
 		ObjectMapper om = new ObjectMapper();
 		om.writeValue(new File(file), registered);
@@ -97,13 +101,13 @@ public class Registered {
 	}
 	
 	public synchronized String[] containers(String mail){
-		ArrayList<String> containers = this.registered.get(mail).get(Globals.CONTAINERS_IDS);
+		ArrayList<String> containers = this.registered.get(mail).containersIds();
 		String[] ret = new String[containers.size()];
 		containers.toArray(ret);
 		return ret;
 	}
 	public synchronized String[] getClearNotifIds(String mail,String regId){
-		ArrayList<String> containers = this.registered.get(mail).get(Globals.CONTAINERS_IDS);
+		ArrayList<String> containers = this.registered.get(mail).containersIds();
 		String[] ret = new String[containers.size()-1];
 		int i = 0;
 		for(String s: containers){
@@ -114,20 +118,17 @@ public class Registered {
 		}
 		return ret;
 	}
-	public synchronized boolean hasRegId(String role, String mail, String regId){
-		HashMap<String,ArrayList<String>> user = this.registered.get(mail);
-		if(Globals.ACTION_CONTAINER.equals(role)){
-			ArrayList<String> containers = user.get(Globals.CONTAINERS_IDS);
-			return containers.contains(regId);
-		}else if(Globals.ACTION_REQUESTER.equals(role)){
-			ArrayList<String> requesters = user.get(Globals.REQUESTER_IDS);
-			return requesters.contains(regId);
+	public synchronized boolean hasId(String role, String mail, String regId){
+		Usuario user = this.registered.get(mail);
+		if(user!=null){
+			if(Globals.ACTION_CONTAINER.equals(role)){
+				ArrayList<String> containers = user.containersIds();
+				return containers.contains(regId);
+			}else if(Globals.ACTION_REQUESTER.equals(role)){
+				ArrayList<String> requesters = user.requesterIds();
+				return requesters.contains(regId);
+			}
 		}
 		return false;
-	}
-	
-	private int cont;
-	public String getNumber() {
-		return (new Integer(cont++)).toString();
 	}
 }

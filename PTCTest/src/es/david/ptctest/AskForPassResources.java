@@ -22,6 +22,7 @@ import es.david.ptctest.util.Globals;
 import es.david.ptctest.util.Message;
 import es.david.ptctest.util.Registered;
 import es.david.ptctest.util.Requests;
+import es.david.ptctest.util.Response;
 import es.david.ptctest.util.UtilMessage;
 
 @Path("/askforpass")
@@ -32,7 +33,7 @@ public class AskForPassResources {
 	 * Método que envia un mensaje de petición a los containers que tiene cada usuario registrado en 
 	 * la plataforma.
 	 */
-	private void sendRequestMessage(String[] usersIds,String mail,String dominio,Integer reqId ) throws Exception{
+	private void sendRequestMessage(String[] usersIds,String mail,String dominio,String reqId ) throws Exception{
 		URL obj = new URL(Globals.GCM_URL);
 		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
@@ -44,7 +45,7 @@ public class AskForPassResources {
 		gcmdata.addData(Globals.MSG_ACTION,Globals.ACTION_REQUEST);
 		gcmdata.addData(Globals.MSG_MAIL, mail);
 		gcmdata.addData(Globals.MSG_DOMAIN, dominio);
-		gcmdata.addData(Globals.MSG_REQ_ID,reqId.toString());
+		gcmdata.addData(Globals.MSG_REQ_ID,reqId);
 		
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -81,13 +82,13 @@ public class AskForPassResources {
 	    	String mail = message.value(Globals.MSG_MAIL);
 	    	String regId = message.value(Globals.MSG_REG_ID);
 	    	String dominio = message.value(Globals.MSG_DOMAIN);
-	    	if(registered.hasRegId(Globals.ACTION_REQUESTER, mail, regId)){
-	    		String pass = null;
-	    		Integer reqId = null;
+	    	if(registered.hasId(Globals.ACTION_REQUESTER, mail, regId)){
+	    		Response pass = null;
+	    		String reqId = null;
 	    		//Añadimos a la lista de peticiones pendientes.
 	    		try {
 	    			reqId = requests.getRequestId();
-					requests.addRequest(mail,dominio,regId);
+					requests.addRequest(mail,reqId,dominio);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -97,7 +98,8 @@ public class AskForPassResources {
 					sendRequestMessage(containers, mail, dominio,reqId);
 					if(reqId!=null)
 						pass = requests.getResponse(reqId);
-					return pass;
+					ObjectWriter ow = new ObjectMapper().writer();
+					return ow.writeValueAsString(pass);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

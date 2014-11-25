@@ -1,8 +1,6 @@
 package es.david.ptctest;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Set;
 
 import javax.ws.rs.GET;
@@ -18,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import es.david.ptctest.util.Globals;
 import es.david.ptctest.util.Message;
 import es.david.ptctest.util.Registered;
+import es.david.ptctest.util.Usuario;
 import es.david.ptctest.util.UtilMessage;
 
 @Path("/register")
@@ -27,7 +26,7 @@ public class RegisterResources {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String sayPlainTextHello() throws JsonProcessingException {
 		registered = Registered.singleton(Globals.fichRegistered);
-    	HashMap<String,LinkedHashMap<String,ArrayList<String>>> registrados = registered.getRegistered();
+    	HashMap<String,Usuario> registrados = registered.getRegistered();
 
 	    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 	    return ow.writeValueAsString(registrados);
@@ -59,6 +58,7 @@ public class RegisterResources {
 			String mail = message.value(Globals.MSG_MAIL);
 			String regId = message.value(Globals.MSG_REG_ID);
 			String role = message.value(Globals.MSG_ROLE);
+			String serverKey = message.value(Globals.MSG_SERVER_KEY);
 			try {
 				registered.backupUsers();
 			} catch (Exception e) {
@@ -68,7 +68,7 @@ public class RegisterResources {
 			if(Globals.ACTION_REQUESTER.equals(role) || Globals.ACTION_CONTAINER.equals(role)){
 				System.out.println("Es un role valido.");
 				try {
-					return registered.addRegId(mail, regId, role);
+					return registered.addRegId(mail, regId, role,serverKey);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
