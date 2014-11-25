@@ -48,15 +48,16 @@ public class Registered {
 			registered = om.readValue(fich, tr);
 		}
 	}
-	public synchronized boolean addRegId(String username, String identificador,String role,String serverKey) throws Exception{
+	public synchronized boolean register(String username, String identificador,String role,String serverKey) throws Exception{
 		Usuario user = registered.get(username);
 		boolean reg = false;
 		if(user!=null){
 			if(serverKey.equals(user.getServerKey())){
-				if(role.equals(Globals.ACTION_REQUESTER)){
-					reg = user.addRequester(identificador);
-				}else if(role.equals(Globals.ACTION_CONTAINER)){
+				if(role.equals(Globals.ACTION_CONTAINER)){
 					reg = user.addContainer(identificador);
+				}else{
+					//Es un requester, solamente miro si tiene bien la serverKey
+					return true;
 				}
 			}
 			
@@ -72,7 +73,6 @@ public class Registered {
 			registered.put(username, user);
 		ObjectMapper om = new ObjectMapper();
 		om.writeValue(new File(file), registered);
-		System.out.println("Reg es false");
 		return reg;
 	}
 	
@@ -118,17 +118,20 @@ public class Registered {
 		}
 		return ret;
 	}
-	public synchronized boolean hasId(String role, String mail, String regId){
+	public synchronized boolean hasContainerId(String mail, String regId){
 		Usuario user = this.registered.get(mail);
 		if(user!=null){
-			if(Globals.ACTION_CONTAINER.equals(role)){
-				ArrayList<String> containers = user.containersIds();
-				return containers.contains(regId);
-			}else if(Globals.ACTION_REQUESTER.equals(role)){
-				ArrayList<String> requesters = user.requesterIds();
-				return requesters.contains(regId);
-			}
+			ArrayList<String> containers = user.containersIds();
+			return containers.contains(regId);
 		}
 		return false;
+	}
+	
+	public boolean correctServerKey(String mail, String serverKey){
+		Usuario user = this.registered.get(mail);
+		if(user!=null){
+			return serverKey.equals(user.getServerKey());
+		}
+		return true;
 	}
 }

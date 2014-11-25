@@ -80,9 +80,10 @@ public class AskForPassResources {
 	    		System.out.println(s+": "+message.value(s));
 	    	}
 	    	String mail = message.value(Globals.MSG_MAIL);
-	    	String regId = message.value(Globals.MSG_REG_ID);
+	    	//String regId = message.value(Globals.MSG_REG_ID); para cuando envie al movil el ordenador que ha enviado la peticion.
 	    	String dominio = message.value(Globals.MSG_DOMAIN);
-	    	if(registered.hasId(Globals.ACTION_REQUESTER, mail, regId)){
+	    	String serverKey = message.value(Globals.MSG_SERVER_KEY);
+	    	if(registered.correctServerKey(mail, serverKey)){
 	    		Response pass = null;
 	    		String reqId = null;
 	    		//Añadimos a la lista de peticiones pendientes.

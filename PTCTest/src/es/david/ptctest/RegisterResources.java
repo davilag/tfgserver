@@ -68,7 +68,7 @@ public class RegisterResources {
 			if(Globals.ACTION_REQUESTER.equals(role) || Globals.ACTION_CONTAINER.equals(role)){
 				System.out.println("Es un role valido.");
 				try {
-					return registered.addRegId(mail, regId, role,serverKey);
+					return registered.register(mail, regId, role,serverKey);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -28,4 +28,7 @@ public class Globals {
     
     public static final String fichRegistered = "/tmp/users-REST.json";
 	public static final String fichRequests = "/tmp/requests-REST.json";
+	
+	//Tiempo de espera de una peticion de la extensión
+	public static final long REQUEST_TIMEOUT = 1000*60*1; //El timeout lo he puesto en 1 min.
 }

@@ -2,6 +2,7 @@ package es.david.ptctest.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -92,11 +93,31 @@ public class Requests {
 	}
 	
 	public synchronized Response getResponse(String requestId) throws InterruptedException{
+		long originDate = (new Date()).getTime();
+		boolean respond = true;
+		long timeSleep = Globals.REQUEST_TIMEOUT;
+		long timeElapsed = 0;
+		long actualDate;
 		while(!pendingResponses.containsKey(requestId)){
-			wait();
+			if(timeElapsed>=timeSleep){
+				respond = false;
+				break;
+			}else{
+				timeSleep -= timeElapsed;
+				originDate = (new Date()).getTime();
+			}
+			wait(timeSleep);
+			actualDate = (new Date()).getTime();
+			timeElapsed = actualDate - originDate;
 		}
-		Response pass = pendingResponses.get(requestId);
-		pendingResponses.remove(requestId);
+		Response pass;
+		if(respond){
+			 pass = pendingResponses.get(requestId);
+			pendingResponses.remove(requestId);
+		}else{
+			pass = new Response("","timeoutExpired");
+			pendingResponses.remove(requestId);
+		}
 		return pass;
 	}
 }

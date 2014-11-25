@@ -9,20 +9,17 @@ public class Usuario {
 	@JsonProperty("username") private String username;
 	@JsonProperty("serverKey") private String serverKey;
 	@JsonProperty("containers") private ArrayList<String> containers;
-	@JsonProperty("requesters") private ArrayList<String>requesters;
 	
 	public Usuario(){
 		containers = new ArrayList<String>();
-		requesters = new ArrayList<String>();
 	}
 	
 	@JsonCreator
 	public Usuario(@JsonProperty("username")String username, @JsonProperty("serverKey")String serverKey,
-					@JsonProperty("containers") ArrayList<String> containers, @JsonProperty("requesters") ArrayList<String> requesters){
+					@JsonProperty("containers") ArrayList<String> containers){
 		this.username = username;
 		this.serverKey = serverKey;
 		this.containers = containers;
-		this.requesters = requesters;
 		
 	}
 	
@@ -38,9 +35,6 @@ public class Usuario {
 		return containers;
 	}
 
-	public ArrayList<String> getRequesters() {
-		return requesters;
-	}
 
 	
 	public String getUsername() {
@@ -50,22 +44,10 @@ public class Usuario {
 		return containers.add(regId);
 	}
 	
-	public boolean addRequester (String hostname){
-		return requesters.add(hostname);
-	}
+
 	
 	public String getServerKey() {
 		return serverKey;
-	}
-
-
-	public boolean hasRequester(String hostname){
-		for(String s: this.requesters){
-			if(s.equals(hostname)){
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	public boolean hasContainer(String regId){
@@ -84,13 +66,6 @@ public class Usuario {
 		return containersIds;
 	}
 	
-	public ArrayList<String> requesterIds(){
-		ArrayList<String> containersIds = new ArrayList<String>();
-		for(String s: this.requesters){
-			containersIds.add(s);
-		}
-		return containersIds;
-	}
 	public class Requester {
 		@JsonProperty("hostname") private String hostname;
 		
