@@ -26,10 +26,6 @@
 <fullyQualifiedTypeName name="java.util.Set"/>
 <fullyQualifiedTypeName name="javassist.bytecode.Descriptor.Iterator"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
-<fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
-<fullyQualifiedTypeName name="es.david.ptctest.util.UtilMessage"/>
-<fullyQualifiedTypeName name="es.david.ptctest.util.Message"/>
-<fullyQualifiedTypeName name="es.david.ptctest.util.Globals"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="es.david.httptest.Usuario"/>
 <fullyQualifiedTypeName name="es.david.httptest.Usuario.Container"/>
@@ -40,13 +36,23 @@
 <fullyQualifiedTypeName name="es.david.ptctest.util.Usuario"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonCreator"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="es.david.ptctest.util.Requests"/>
 <fullyQualifiedTypeName name="es.david.ptctest.util.Usuario.Requester"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.core.type.TypeReference"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="es.david.ptctest.util.RandomString"/>
-<fullyQualifiedTypeName name="es.david.ptctest.util.Response"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectWriter"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonProperty"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Produces"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.Response"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.UtilMessage"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.Message"/>
+<fullyQualifiedTypeName name="org.glassfish.jersey.server.Uri"/>
+<fullyQualifiedTypeName name="com.sun.tracing.dtrace.ArgsAttributes"/>
+<fullyQualifiedTypeName name="javax.websocket.server.PathParam"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.Globals"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.Registered"/>
+<fullyQualifiedTypeName name="es.david.ptctest.util.Requests"/>
 </qualifiedTypeNameHistroy>

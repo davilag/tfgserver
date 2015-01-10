@@ -1,0 +1,74 @@
+/********************
+
+CERTIFICADOS HTTPS
+
+*******************/
+
+El servidor Tomcat utiliza un archivo llamado keystore para guardar los certificados de las aplicaciones que contiene. Para generar ese archivo keystore se utiliza la herramienta de java keytool.
+Este es el comando para generar el keystore: 
+
+/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/bin/keytool -genkey -alias tomcat -keyalg RSA -keystore almacen.ks
+
+Aqui nos piden unas contraseñas. Para evitar problemas más adelante se ponen las mismas contraseñas para todo. El problema que tiene este almacen es que no se puede generar un certificado que pueda servir para instalarlo en la parte del cliente. Antes de crear este certificado, para que pueda ser utilizado por la aplicación android tiene que estar firlamdo por una CA, de tal modo que nos crearemos nuestra CA para poder firmar nosotros mismos el certificado. Para crearnos la clave del certificado utilizaremos el siguiente comando:
+
+openssl genrsa -out rootCA.key 2048 -des3
+
+Estos nos genera un clave que tendremos que mantener privada ya que se podrían firmar certificados haciéndose pasar por nuestra CA. Además con la opción -des3 le hemos añadido una contraseña para poder operar con esta clave privada, de tal forma que tendremos que saber la contraseña para poder operar con esta clave. Lo siguiente es generar un certificado de la CA para que el cliente tenga la certeza de que la CA que ha firmado la propiertaria de este certificado. Ejecutaremos el siguiente comando:
+
+openssl req -x509 -new -nodes -key rootCA.key -days 1024 -out rootCA.pem
+
+Para crear el certificado del usuario, tendríamos que crear una clave privada para la aplicacion. Para esto ejecutamos el siguiente comando:
+
+openssl genrsa -out device.key 2048
+
+Para generar el certificado necesario en la aplicación teniendo la clave privada hay que ejecutar el siguiente comando:
+
+openssl req -new -key device.key -out device.csr
+
+Una vez tenemos este certificado tendríamos que firmarlo con la clave privada del CA. Para eso hay que ejecutar el siguiente comando: 
+
+openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 500
+
+Esto nos genera el certificado device.crt pero este formato no es válido para guardarlo en la keystore que hemos generado antes por lo que habría que exportarlo al formato PKCS12. Para exportarlo a este formato tendríamos que ejecutar lo siguiente: 
+
+openssl pkcs12 -export -in device.crt -inkey device.key -out device.p12 -name tomcat -CAfile rootCA.pem -caname root -chain
+
+Con esto se genera un certificado device.p12 con el formato pkcs12 que se puede importar en el keystore del servidor. Para importarlo se ejecuta el siguiente comando:
+
+/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/bin/keytool -genkey -importkeystore -srckeystore mycert.p12 -srcstoretype PKCS12 -destkeystore almacen.ks -deststoretype JKS
+
+De esta forma tenemos en el almacen de certificados un certificado firmado que se puede instalar en la parte del cliente y que va a utilizar el servidor para cifrar las conexiones con los demas
+clientes.
+
+Una vez ya esta el certificado que queremos utilizar para las conexiones con los clientes, hay que configurar el fichero server.xml que esta dentro del directorio conf del servidor. Para configurar 
+el servidor hay que añadir el siguiente elemento xml al fichero:
+
+<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" keystoreFile="/Users/davilag/Documents/apache-tomcat-8.0.14/almacen.ks"
+               keystorePass="proyecto" keyAlias="tomcat"/>
+
+Donde la keyStorePass es la contraseña que se ha utilizado para generar el almacen en el primer comando de keytool. Hecho una vez esto, podemos utilizar el servidor con https conectándonos al puerto 8443.
+Utilizando OSX con Google Chrome aunque se instale el certificado en el llavero va a salir un mensaje como que el sitio visitado no es seguro pero utilizando Safari si que detecta como seguro el sitio dejando 
+establecer conexiones sin ningun tipo de advertencia.
+
+/********************
+
+ELECCIÓN DEL SERVIDOR
+
+*******************/
+El servidor que se ha montado para la aplicación es uno capaz de interactuar con dispositivos móviles Android y la extensión de Google Chrome mediante Google Cloud Messaging (GCM). 
+
+El esquema de GCM se basa en un servidor que tiene una id única para el proyecto (que se genera manualmente desde la Google Developer Console) por lo que un proyecto solo puede tener un servidor al que se van a comunicar todos los dispositivos (tanto los moviles como la extensión de Google Chrome). Este servidor se podía implementar con dos protocolos: XMPP y HTTP. 
+
+Desde la página de GCM te invitan a que lo implementes con el protocolo XMPP ya que permite una comunicación bidireccional, es decir, puedes mandar mensajes por GCM desde el servidor a los clientes y de los clientes al servidor lo que simplificaría muchisimo la implementación del servidor para esta aplicación ya que la única limitación que tiene GCM es que el tamaño de los mensajes no puede ser muy grande y para este proposito no necesitamos mensajes con mucho peso. 
+
+La otra opción es implementar el servidor con el protocolo HTTP que solo deja mandar mediante GCM mensajes desde el servidor a los dispositivos. Estos mensajes llegan al dispositivo si desde el servidor se ha enviado una petición HTTP POST a una URL conocida, metiendo por parámetros la id del dispositivo, las distintas opciones que estos mensajes tienen y el payload del mensaje.
+
+En un principio se pensó en crear una aplicación que el usuario se pudiera instalar en el ordenador que va a ejecutar la extensión de Google Chrome para luego que desde esa aplicación se pudiera poner en contacto con el móvil. Para esta aplicacion pensamos en crear el servidor con el protocolo XMPP que se basa en el intercambio de mensajes XML, pero al llegar al esquema general de cómo debería comportarse la aplicación se llegó a la conclusión de que no se podía llevar a cabo ya que sería necesario que cada usuario tuviera una id de servidor, ya que el esquema de GCM está pensado para que haya un único servidor central para el proyecto, por lo que esta implementación no se podía llevar a cabo.
+
+El siguiente modelo que se planteó fué el de crear un servidor central de GCM con XMPP de tal forma que todas las extensiones de Google Chrome activas como los dispositivos móviles se pondrían en contacto con ese único servidor, lo que sigue la jerarquía de GCM. El inconveniente de este modelo y por lo que no fué la primera opción es que te obliga a que el servidor esté montado en una dirección pública y se quería que para llevar a cabo la ejecución del proyecto no fuera necesario pagar por tener una dirección publica. La implementacion de este modelo no salio todo lo bien que se esperaba, lo mensajes a veces llegaban repetidos y no con la latencia que se esperaba para lo que queríamos utilizarlo por lo que se descartó este modelo.
+
+El modelo que finalmente se ha implementado para el servidor ha sido un servidor REST para la comunicación desde la extensión y el movil y para mandar mensajes desde el servidor a el movil utilizo GCM mandando mensajes HTTP. Para poner en contacto al servidor con la extensión, utilizo la respuesta de la petición HTTP que hace la extensión, por lo que la extensión siempre tiene una respuesta del servidor aunque el servidor puede no recibir un mensaje del movil. De tal forma que cuando por ejemplo la extension hace una peticion de contraseña al servidor, envia una peticion HTTP al servidor, cuando le llega la petición al servidor este le envia un mensaje GCM al movil, el movil contesta con una peticion HTTP al servidor y el servidor responde a la extensión con en la respuesta de la primera petición HTTP. En las extensiones hay un límite de conexiones simultáneas por lo que si en un timeout no contesta el movil, salta un timeout desbloqueando la conexión. Cuando salta el timeout a la extension le llega un mensaje similar a cuando recibe una respuesta correcta para saber la razón de el mensaje erróneo.
+
+Para implementar el servidor REST empecé utilizando la API RestX. Ofrecía de forma muy sencilla montar un servidor REST. El punto malo que tenía es que no había mucha documentación de cómo funcionaba además de no sorportar HTTPS, factor que hizo que dejara de utilizarlo. Después de dejar de utilizar Restx, me decanté por montar el servicio REST en un servidor Apache Tomcat 8.0 utilizando Jersey para implementar el servicio. El servidor es portable por lo que copiando el directorio que lo contien se puede lanzar ejecutando el script startup.sh del direcotrio bin. Una vez tengas el servicio montado con todas las librerías necesarias (en mi caso lo he montado desde eclipse) para ejecutar el servicio en el servidor, hay que exportar el servicio en un WAR y copiarlo a la carpeta webapps, una vez se ejecute el servidor se generará un subdirectorio de webapps llamado como nuestro servicio.
