@@ -138,4 +138,8 @@ public class Registered {
 		System.out.println("Devuelve false.");
 		return false;
 	}
+	
+	public synchronized int getNContainers(String mail){
+		return this.registered.get(mail).containersIds().size();
+	}
 }

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;cipher&apos; in &apos;Main.chunckEncrypt()&apos; to &apos;cipherEncrypt&apos;&#x0A;- Original project: &apos;GaloisTest&apos;&#x0A;- Original element: &apos;Main.chunckEncrypt().cipher&apos;&#x0A;- Renamed element: &apos;cipher&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;cipher&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{Main.java[Main~chunckEncrypt@cipher!2227!2318!2234!2239!QCipher;!0!false" name="cipherEncrypt" references="true" stamp="1424284728825" version="1.0"/>
+</session>

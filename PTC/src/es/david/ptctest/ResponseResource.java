@@ -83,7 +83,7 @@ public class ResponseResource {
 	    	String serverKey = message.value(Globals.MSG_SERVER_KEY);
 	    	if(registered.correctServerKey(mail, serverKey)){
 		    	try {
-					boolean regresponse = requests.removeRequest(mail, user,pass,reqId,dominio);
+					boolean regresponse = requests.removeRequest(mail, user,pass,reqId,dominio,registered.getNContainers(mail));
 					if(regresponse){
 						System.out.println("Existe la peticion");
 	//					sendResponseMessage(regresponse, mail, dominio, pass);

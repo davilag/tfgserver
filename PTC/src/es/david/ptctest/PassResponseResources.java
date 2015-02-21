@@ -36,7 +36,7 @@ public class PassResponseResources {
 			
 			if(registered.correctServerKey(mail, serverKey)){
 				try {
-					requests.removeRequest(mail, saved, "", reqId, "savePass");
+					requests.removeRequest(mail, saved, "", reqId, "savePass",registered.getNContainers(mail));
 					return true;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

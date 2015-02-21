@@ -79,14 +79,38 @@ public class Requests {
 	public synchronized String getRequestId(){
 		return this.requestIdGenerator.nextString();
 	}
-	public synchronized boolean removeRequest(String mail,String user, String pass,String reqId, String dominioIn) throws JsonGenerationException, JsonMappingException, IOException{
+	public synchronized boolean removeRequest(String mail,String user, 
+											  String pass,String reqId, String dominioIn, 
+											  int nContainers) throws JsonGenerationException, JsonMappingException, IOException{
+		System.out.println("El numero de containers para: "+mail+" es de: "+nContainers);
 		String dominio = this.pendingRequests.get(mail).get(reqId);
 		System.out.println("Entra en borrar.");
 		if(dominio.equals(dominioIn)){
 			System.out.println("Ha encontrado la peticion");
-			this.pendingRequests.get(mail).remove(reqId);
-			this.pendingResponses.put(reqId, new Response(user,pass));
-			notifyAll();
+			if("".equals(user)){
+				Response r = this.pendingResponses.get(reqId);
+				if(r!=null){
+					r.incrementNResponses();
+					System.out.println("Me han contestado ya: "+r.getNresponses());
+					if(r.getNresponses()>=nContainers){
+						this.pendingRequests.get(mail).remove(reqId);
+						notifyAll();
+						return true;
+					}
+				}else{
+					r = new Response(user,pass);
+					r.incrementNResponses();
+					this.pendingResponses.put(reqId, r);
+					if(r.getNresponses()>=nContainers){
+						notifyAll();
+					}
+				}
+				return false;
+			}else{
+				this.pendingRequests.get(mail).remove(reqId);
+				this.pendingResponses.put(reqId, new Response(user,pass));
+				notifyAll();
+			}
 			saveStatus();
 			return true;
 		}

@@ -2,7 +2,7 @@
 <section name="Workbench">
 	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
 	<item value="480,442" key="UserLibraryLoadSaveDialog.size"/>
-	<item value="/Users/davilag/Downloads/jaxrs-ri/ext" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="/Users/davilag/Downloads/ejbca_ce_6_2_0/lib" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="3" key="TypeHierarchyViewPart.orientation"/>
 	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
