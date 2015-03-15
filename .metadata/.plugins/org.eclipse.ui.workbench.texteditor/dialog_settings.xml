@@ -2,26 +2,31 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="265" key="DIALOG_WIDTH"/>
-		<item value="295" key="DIALOG_Y_ORIGIN"/>
-		<item value="726" key="DIALOG_X_ORIGIN"/>
+		<item value="143" key="DIALOG_Y_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
+		<item value="1060" key="DIALOG_X_ORIGIN"/>
 		<item value="1|.Helvetica Neue DeskInterface|11.0|0|COCOA|1|.HelveticaNeueDeskInterface-Regular" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="registered" key="selection"/>
+		<item value="NoPadding" key="selection"/>
 		<list key="findhistory">
+			<item value="PKCS5PADDING"/>
+			<item value="NoPadding"/>
+			<item value="keySize"/>
+			<item value="input"/>
 			<item value="registered"/>
 			<item value="hasRe"/>
 			<item value="has"/>
 			<item value="removeRequest"/>
-			<item value="message"/>
 		</list>
 		<list key="replacehistory">
+			<item value="NoPadding"/>
+			<item value="PKCS5PADDING"/>
 		</list>
 	</section>
 </section>

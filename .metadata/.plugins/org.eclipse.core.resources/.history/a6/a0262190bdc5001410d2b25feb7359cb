@@ -1,0 +1,268 @@
+import java.nio.ByteBuffer;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.Security;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.encoders.Hex;
+
+
+public class Main {
+	/*
+	public static byte[] encrypt(String key,String plainText, String aad, String iv, String ctext, String tag) throws Exception{
+		byte[] byteKey = Hex.decode(key);
+		byte[] byteIv = null;
+		if(iv!=null){
+			byteIv = Hex.decode(iv);
+		}
+		byte[] byteTag = Hex.decode(tag.toUpperCase());
+
+		System.out.println("El tamaño de byteKey: "+byteKey.length);
+		if(iv!=null)
+			System.out.println("El tamaño de byteIv: "+byteIv.length);
+		System.out.println("El texto plano es: "+plainText);
+		System.out.println("El tamaño de tag es: "+byteTag.length);
+		byte[] byteEncrypt = new byte[key.length()+byteTag.length];
+		for(int i = 0; i<byteTag.length;i++){
+			byteEncrypt[i] = byteTag[i];
+		}
+		for(int i = byteTag.length; i<byteEncrypt.length;i++){
+			byteEncrypt[i] = byteTag[i-byteTag.length];
+		}
+		Cipher cipherEncrypt = Cipher.getInstance("AES/GCM/NoPadding", BouncyCastleProvider.PROVIDER_NAME);
+		if(iv!=null){
+			cipherEncrypt.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(byteEncrypt,"AES"), new IvParameterSpec(byteIv)k);
+		}else{
+			cipherEncrypt.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(byteEncrypt,"AES"));
+		}
+		byte[] encrypted = cipherEncrypt.doFinal(plainText.getBytes());
+		byte[] encryptedValue = Base64.encodeBase64(encrypted);
+		return encryptedValue;
+	}
+	
+	public static String decrypt(byte[] encryptText,String key, String aad, String iv, String ctext){
+		byte[] byteKey = Hex.decode(key);
+		
+	}
+	*/
+	private static byte[] xor(byte[] b1, byte[] b2){
+		if(b1.length>b2.length){
+			b2 = concatenar(b2, new byte[b1.length-b2.length]);
+		}else if(b1.length<b2.length){
+			b1 = concatenar(b1, new byte[b2.length-b1.length]);
+		}
+		byte[] b3 = new byte[b1.length];
+		int i = 0;
+		for(byte b: b1){
+			b3[i] = (byte) (b ^ b2[i++]);
+		}
+		return b3;
+	}
+	private static byte[] intToList(int number, int listSize){
+		ByteBuffer b = ByteBuffer.allocate(listSize);
+		b.putInt(number);
+		return b.array();
+	}
+	
+	private static int listToInt(byte[] in){
+		ByteBuffer wrapped = ByteBuffer.wrap(in);
+		int out = wrapped.getInt();
+		return out;
+	}
+	private static byte[] multGF2(byte[]bytex, byte[]bytey){
+		int x = listToInt(bytex);
+		int y = listToInt(bytey);
+		
+		int z = 0;
+		while((y & ((1<<128)-1))!=0){
+			if((y & (1<<127))!=0){
+				z ^= x;
+			}
+			y <<= 1;
+			if((x & 1)!=0){
+				x = (x>>1)^(0xe1<<120);
+			}else{
+				x >>=1;
+			}
+		}
+		return intToList(z, 16);
+	}
+	private static byte[] xorMultH(byte[] p, byte[] q, byte[] hkey){
+		return multGF2(hkey, xor(p,q));
+	}
+		
+	private static byte[] gLen(byte[] x){
+		return intToList(x.length*8, 8);
+	}
+	private static byte[] concatenar(byte[] b1, byte[] b2){
+		byte[] byteReturn = new byte[b1.length+b2.length];
+		for(int i = 0; i<b1.length; i++){
+			byteReturn[i] = b1[i];
+		}
+		for(int i = b1.length; i<byteReturn.length;i++){
+			byteReturn[i] = b2[i-b1.length];
+		}
+		return byteReturn;
+	}
+	private static byte[] subArray(byte[] arrayIn,int indexInit, int indexFin){
+		if (indexFin >= arrayIn.length){
+			indexFin = arrayIn.length-1;
+		}
+		byte[] arrayOut = new byte[indexFin-indexInit+1];
+		for(int i = indexInit; i<indexFin+1;i++){
+			arrayOut[i-indexInit] = arrayIn[i]; 
+		}
+		return arrayOut;
+	}
+	private static byte[] GHASH(byte[] hkey,byte[] aad, byte[] ctext){
+		byte[] x = new byte[16];
+		byte[] auxAad = new byte[(16-aad.length%16)%16];
+		byte[] aadP = concatenar(aad, auxAad);
+		byte[] ctexAux = new byte[(16-ctext.length%16)%16];
+		byte[] ctextP = concatenar(ctext, ctexAux);
+		for(int i = 0; i<aadP.length;i+=16){
+			byte[] aux = subArray(aadP, i, i+16);
+			x = xorMultH(x, aux, hkey);
+		}
+		for(int i = 0; i<ctexAux.length;i+=16){
+			byte[] aux = subArray(ctextP, i, i+16);
+			x = xorMultH(x, aux, hkey);
+		}
+		return xorMultH(x, concatenar(aad, ctext), hkey);
+	}
+	private static byte[] incr(byte[]m){
+		byte[] n12 = subArray(m, 0, 12);
+		int ctr = listToInt(subArray(m, 12, m.length));
+		if(ctr==(1<<32)-1){
+			return concatenar(n12, new byte[4]);
+		}else{
+			return concatenar(n12,intToList(ctr+1, 4));
+		}
+	}
+	private static byte[][] GCMEncrypt(byte[]key,byte[]iv,byte[]input,byte[]aad) throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException{
+		//GENERAR SALIDA
+		Security.addProvider(new BouncyCastleProvider());
+		Cipher cipher1 = Cipher.getInstance("AES/GCM/NoPadding", BouncyCastleProvider.PROVIDER_NAME);
+		cipher1.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"));
+		byte[]h = cipher1.doFinal(new byte[16]);
+		byte[] y0=null;
+		if(iv.length==12){
+			byte[] aux = new byte[4];
+			aux[0] = 0x01;
+			y0= concatenar(iv, aux);
+		}else{
+			y0=GHASH(h, new byte[0], iv);
+		}
+		
+		byte[] g = cipher1.doFinal(y0);
+		Cipher cipherEncrypt = Cipher.getInstance("AES/GCM/NoPadding", BouncyCastleProvider.PROVIDER_NAME);;
+		cipherEncrypt.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key,"AES"), new IvParameterSpec(y0));
+		byte[] encrypted = cipherEncrypt.doFinal(input);
+		byte[] encryptedValue = Base64.encode(encrypted);
+		//FIN GENERAR SALIDA
+		byte[] tag = xor(GHASH(h, aad, encryptedValue), g);
+		return new byte[][]{encryptedValue,tag};
+		
+	}
+	
+	private static byte[][] GCMDecrypt(byte[]key,byte[]iv,byte[]input,byte[]aad)throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException{
+		Security.addProvider(new BouncyCastleProvider());
+		
+		Cipher cipher1 = Cipher.getInstance("AES/GCM/NoPadding", BouncyCastleProvider.PROVIDER_NAME);
+		cipher1.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"));
+		byte[]h = cipher1.doFinal(new byte[16]);
+		byte[] y0=null;
+		if(iv.length==12){
+			byte[] aux = new byte[4];
+			aux[0] = 0x01;
+			y0= concatenar(iv, aux);
+		}else{
+			y0=GHASH(h, new byte[0], iv);
+		}
+		
+		byte[] g = cipher1.doFinal(y0);
+		Cipher cipherDecrypt = Cipher.getInstance("AES/GCM/NoPadding", BouncyCastleProvider.PROVIDER_NAME);
+		cipherDecrypt.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key,"AES"), new IvParameterSpec(y0));
+		byte[] decryptedBytes = Base64.decode(input);
+		byte[] original = cipherDecrypt.doFinal(decryptedBytes);
+		byte[] tag = xor(GHASH(h, aad, input),g);
+		return new byte[][] {original,tag};
+	}
+	
+	public static void main(String[] args) throws InvalidAlgorithmParameterException, NoSuchAlgorithmException {
+		/*
+		Security.addProvider(new BouncyCastleProvider());
+		try {
+			byte[] key = MessageDigest.getInstance("MD5").digest("som3C0o7p@s5".getBytes());
+			byte[] iv = Hex.decode("EECE34808EF2A9ACE8DF72C9C475D751");
+			String plainTextIn = "Hola mundo";
+			Cipher cipherEncrypt = Cipher.getInstance("AES/GCM/NoPadding", BouncyCastleProvider.PROVIDER_NAME);;
+			
+			cipherEncrypt.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key,"AES"), new IvParameterSpec(iv));
+			byte[] encrypted = cipherEncrypt.doFinal(plainTextIn.getBytes());
+			byte[] encryptedValue = Base64.encode(encrypted);
+			
+			System.out.println("La salida del encrypt es: "+encryptedValue);
+			byte[] iv2 = Hex.decode("EECE34808EF2A9ACE8DF72C9C475D751");
+			Cipher cipherDecrypt = Cipher.getInstance("AES/GCM/NoPadding", BouncyCastleProvider.PROVIDER_NAME);
+			cipherDecrypt.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key,"AES"), new IvParameterSpec(iv2));
+			byte[] decryptedBytes = Base64.decode(encryptedValue);
+			byte[] original = cipherDecrypt.doFinal(decryptedBytes);
+			System.out.println(new String(original));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		byte[] key = MessageDigest.getInstance("MD5").digest("som3C0o7p@s5".getBytes());
+		byte[] iv = Hex.decode("EECE34808EF2A9ACE8DF72C9C475D751");
+		System.out.println("Tamaño de iv: "+iv.length);
+		byte[] input = "1234567890qwertyuiopasdfghjklñzxcvbnm1234567890".getBytes();
+		System.out.println("Tamaño input: "+input.length);
+		byte[] aad = Hex.decode("feedfacedeadbeeffeedfacedeadbeefabaddad2".toUpperCase());
+		try {
+			byte[][] encrypt = GCMEncrypt(key, iv, input, aad);
+
+			byte[][] decrypt = GCMDecrypt(key, iv, encrypt[0], aad);
+			System.out.println("Tamaño salida"+decrypt[0].length);
+			System.out.println("Salida: "+new String(decrypt[0]));
+			System.out.println(input.length);
+			byte[] tagIn = encrypt[1];
+			byte[] tagOut = decrypt[1];
+			boolean sonIguales = true;
+			if(tagIn.length == tagOut.length){
+				System.out.println("Vamos bien");
+				for(int i = 0; i<tagIn.length;i++){
+					if(tagIn[i] != tagOut[i]){
+						sonIguales = false;
+						break;
+					}
+				}
+			}else{
+				System.out.println("Vamos mal");
+			}
+			
+			if(sonIguales){
+				System.out.println("EXITO!!");
+			}else{
+				System.out.println("FRACASO!!");
+			}
+		} catch (InvalidKeyException | NoSuchAlgorithmException
+				| NoSuchProviderException | NoSuchPaddingException
+				| IllegalBlockSizeException | BadPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

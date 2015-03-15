@@ -19,5 +19,7 @@
 	<classpathentry kind="lib" path="/Users/davilag/Downloads/ejbca_ce_6_2_0/lib/ldap.jar"/>
 	<classpathentry kind="lib" path="/Users/davilag/Downloads/ejbca_ce_6_2_0/lib/libidn.jar"/>
 	<classpathentry kind="lib" path="/Users/davilag/Downloads/ejbca_ce_6_2_0/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/security/local_policy.jar"/>
+	<classpathentry kind="lib" path="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/security/US_export_policy.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
