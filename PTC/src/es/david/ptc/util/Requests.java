@@ -84,8 +84,10 @@ public class Requests {
 											  int nContainers) throws JsonGenerationException, JsonMappingException, IOException{
 		System.out.println("El numero de containers para: "+mail+" es de: "+nContainers);
 		String dominio = this.pendingRequests.get(mail).get(reqId);
+		System.out.println("El dominio es: '"+dominio+"'");
+		System.out.println("El dominio de entrada es: '"+dominioIn+"'");
 		System.out.println("Entra en borrar.");
-		if(dominio.equals(dominioIn)){
+		if(dominio.trim().equalsIgnoreCase(dominioIn.trim())){
 			System.out.println("Ha encontrado la peticion");
 			if("".equals(user)){
 				Response r = this.pendingResponses.get(reqId);

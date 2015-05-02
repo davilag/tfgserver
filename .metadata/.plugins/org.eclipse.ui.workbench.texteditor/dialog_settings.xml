@@ -13,18 +13,19 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="NoPadding" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
-			<item value="PKCS5PADDING"/>
+			<item value="static"/>
+			<item value="addProvider"/>
 			<item value="NoPadding"/>
+			<item value="PKCS5PADDING"/>
 			<item value="keySize"/>
 			<item value="input"/>
 			<item value="registered"/>
 			<item value="hasRe"/>
-			<item value="has"/>
-			<item value="removeRequest"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 			<item value="NoPadding"/>
 			<item value="PKCS5PADDING"/>
 		</list>

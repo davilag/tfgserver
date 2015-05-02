@@ -35,6 +35,7 @@ public class PassResponseResources {
 			String serverKey = message.value(Globals.MSG_SERVER_KEY);
 			
 			if(registered.correctServerKey(mail, serverKey)){
+				System.out.println("Coincide la el mail con la serverkey");
 				try {
 					requests.removeRequest(mail, saved, "", reqId, "savePass",registered.getNContainers(mail));
 					return true;

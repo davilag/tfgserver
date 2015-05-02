@@ -44,6 +44,10 @@ public class Usuario {
 		return containers.add(regId);
 	}
 	
+	public boolean deleteContainer(String regId){
+		return containers.remove(regId);
+	}
+	
 
 	
 	public String getServerKey() {

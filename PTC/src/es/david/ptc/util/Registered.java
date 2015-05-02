@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /*
@@ -141,5 +143,20 @@ public class Registered {
 	
 	public synchronized int getNContainers(String mail){
 		return this.registered.get(mail).containersIds().size();
+	}
+	private void saveStatus() throws JsonGenerationException, JsonMappingException, IOException{
+		ObjectMapper om = new ObjectMapper();
+		om.writeValue(new File(file), this.registered);
+	}
+	public synchronized boolean deleteRegId(String mail, String regId) throws JsonGenerationException, JsonMappingException, IOException{
+		Usuario user = this.registered.get(mail);
+		if(user!=null){
+			System.out.println("Tengo "+this.getNContainers(mail)+" containers en este usuario.");
+			boolean returnValue =  user.deleteContainer(regId);
+			System.out.println("Tengo "+this.getNContainers(mail)+" containers en este usuario.");
+			saveStatus();
+			return returnValue;
+		}
+		return false;
 	}
 }

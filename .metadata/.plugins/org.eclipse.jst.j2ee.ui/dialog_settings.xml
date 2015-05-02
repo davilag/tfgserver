@@ -2,12 +2,14 @@
 <section name="Workbench">
 	<item value="true" key="J2EE_EXPORT_OVERWRITE"/>
 	<item value="true" key="J2EE_EXPORT_SOURCE"/>
-	<list key="J2EE_EXPORT_JST_WEB">
-		<item value="/Users/davilag/Documents/apache-tomcat-8.0.14/webapps/PTC.war"/>
-		<item value="/Users/davilag/Documents/apache-tomcat-8.0.14/webapps/PTCTest.war"/>
-		<item value="/Users/davilag/PTCTest.war"/>
-	</list>
 	<list key="MRU_RUNTIME_STORE">
 		<item value="Apache Tomcat v8.0"/>
+	</list>
+	<list key="J2EE_EXPORT_JST_WEB">
+		<item value="/Users/davilag/Documents/apache-tomcat-8.0.14/webapps/PTC.war"/>
+		<item value="/Users/davilag/Documents/apache-tomcat-8.0.14/webapps/es.davidavila.ptc.war"/>
+		<item value="/Users/davilag/Documents/PTC.war"/>
+		<item value="/Users/davilag/Documents/apache-tomcat-8.0.14/webapps/Prueba.war"/>
+		<item value="/Users/davilag/Downloads/apache-tomcat-8.0.14/webapps/PTC.war"/>
 	</list>
 </section>

@@ -1,4 +1,0 @@
-127.0.0.1 - - [19/Nov/2014:00:15:17 +0100] "POST /PTC/askforpass HTTP/1.1" 200 12
-192.168.1.37 - - [19/Nov/2014:00:15:17 +0100] "POST /PTC/response HTTP/1.1" 200 4
-127.0.0.1 - - [19/Nov/2014:00:15:50 +0100] "POST /PTC/askforpass HTTP/1.1" 200 13
-192.168.1.37 - - [19/Nov/2014:00:15:51 +0100] "POST /PTC/response HTTP/1.1" 200 4

@@ -67,6 +67,7 @@ public class ResponseResource {
 		System.out.println(body);
 		Message message = UtilMessage.stringToMessage(body);
 		if(message!=null){
+			System.out.println("El mensaje es distinto de null");
 			registered = Registered.singleton(Globals.fichRegistered);
 	    	requests = Requests.singleton(Globals.fichRequests);
 	    	System.out.println("Mensaje de respuesta:");
@@ -82,6 +83,7 @@ public class ResponseResource {
 	    	String reqId = message.value(Globals.MSG_REQ_ID);
 	    	String serverKey = message.value(Globals.MSG_SERVER_KEY);
 	    	if(registered.correctServerKey(mail, serverKey)){
+	    		System.out.println("La serverkey es correcta");
 		    	try {
 					boolean regresponse = requests.removeRequest(mail, user,pass,reqId,dominio,registered.getNContainers(mail));
 					if(regresponse){
