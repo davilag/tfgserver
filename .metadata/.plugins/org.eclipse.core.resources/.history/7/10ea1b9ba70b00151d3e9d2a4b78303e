@@ -1,0 +1,9 @@
+package es.david.ptc;
+
+import javax.ws.rs.Path;
+
+
+@Path("/logout")
+public class LogoutResources {
+
+}

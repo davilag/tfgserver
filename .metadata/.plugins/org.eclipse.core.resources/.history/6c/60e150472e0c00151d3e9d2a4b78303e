@@ -1,0 +1,54 @@
+package es.david.ptc;
+
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import es.david.ptc.util.GaloisCounterMode;
+import es.david.ptc.util.Globals;
+import es.david.ptc.util.Message;
+import es.david.ptc.util.Registered;
+import es.david.ptc.util.Requests;
+import es.david.ptc.util.TimestampCache;
+import es.david.ptc.util.UtilMessage;
+
+
+@Path("/logout")
+public class LogoutResources {
+	private Registered registered;
+	private TimestampCache tsCache;
+	
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	public boolean logout(String body) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, UnsupportedEncodingException{
+		System.out.println("Me ha llegado un mensaje de respuesta");
+		System.out.println(body);
+		Message message = UtilMessage.stringToMessage(body);
+		if(message!=null){
+			registered = Registered.singleton(Globals.fichRegistered);
+			tsCache = TimestampCache.getSingleton();
+			String aad = (String)message.value(Globals.MSG_AAD);
+			String payloadCipher = (String) message.value(Globals.MSG_PAYLOAD);
+			String iv = (String) message.value(Globals.MSG_IV);
+			String serverKey = registered.getServerKey(aad);
+			String payloadPlain = GaloisCounterMode.GCMDecrypt(serverKey, iv, payloadCipher, aad);
+			Message payload = UtilMessage.stringToMessage(payloadPlain);
+			String regId = (String)payload.value(Globals.MSG_REQ_ID);
+			Long ts = new Long((int)payload.value(Globals.MSG_TS));
+			if(!tsCache.hasTimeStamp(ts)){
+				return registered.removeRegId(aad, regId);
+			}
+		}
+		return false;
+	}
+}

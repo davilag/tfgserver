@@ -12,6 +12,12 @@ public class Globals {
     public static final String MSG_SERVER_KEY="serverKey";
     public static final String MSG_USER = "usuario";
     public static final String MSG_SAVED_PASS = "saved";
+    public static final String MSG_PAYLOAD = "payload";
+    public static final String MSG_IV = "iv";
+    public static final String MSG_AAD = "aad";
+    public static final String MSG_NONCE = "nonce";
+    public static final String MSG_STATE = "estado";
+    public static final String MSG_TS = "ts"; 
     public static final String GCM_URL = "https://android.googleapis.com/gcm/send";
 
     //Constantes para las acciones de GCM
@@ -34,4 +40,8 @@ public class Globals {
 	
 	//Tiempo de espera de una peticion de la extensión
 	public static final long REQUEST_TIMEOUT = 1000*60*1; //El timeout lo he puesto en 1 min.
+	
+    //Estados del mensaje de respuesta
+    public static final String MSG_STATE_OK = "OK";
+    public static final String MSG_STATE_NO_PASSWD ="noPass";
 }

@@ -2,10 +2,17 @@ package es.david.ptc;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.HashMap;
-import java.util.Set;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.net.ssl.HttpsURLConnection;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,40 +20,55 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import es.david.ptc.util.GCMMessage;
+import es.david.ptc.util.GaloisCounterMode;
 import es.david.ptc.util.Globals;
 import es.david.ptc.util.Message;
+import es.david.ptc.util.PayloadRequest;
 import es.david.ptc.util.Registered;
 import es.david.ptc.util.Requests;
 import es.david.ptc.util.Response;
+import es.david.ptc.util.TimestampCache;
 import es.david.ptc.util.UtilMessage;
 
 @Path("/askforpass")
 public class AskForPassResources {
 	private Registered registered;
 	private Requests requests;
+	private TimestampCache tsCache;
 	/*
 	 * Método que envia un mensaje de petición a los containers que tiene cada usuario registrado en 
 	 * la plataforma.
 	 */
-	private void sendRequestMessage(String[] usersIds,String mail,String dominio,String reqId, String serverKey ) throws Exception{
+	private void sendRequestMessage(String[] usersIds,String mail,String dominio,String reqId, String serverKey, Long nonce ) throws Exception{
 		URL obj = new URL(Globals.GCM_URL);
 		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/json");
 		con.setRequestProperty("Authorization", "key=AIzaSyBazwPhhD0N6ddh3Ph0IK59kKOrFjBixZY");
 		
+		Message payload = new Message();
+		payload.addData(Globals.MSG_DOMAIN, dominio);
+		payload.addData(Globals.MSG_NONCE,nonce);
+		payload.addData(Globals.MSG_ACTION, Globals.ACTION_REQUEST);
+		payload.addData(Globals.MSG_TS, System.currentTimeMillis());
+		
+		ObjectWriter ow = new ObjectMapper().writer();
+		String payloadPlain = ow.writeValueAsString(payload);
+		String iv = GaloisCounterMode.getIv();
+		String payloadCif = GaloisCounterMode.GCMEncrypt(serverKey, iv, payloadPlain, reqId);
+		
 		ObjectMapper om = new ObjectMapper();
 		GCMMessage gcmdata = new GCMMessage(usersIds);
-		gcmdata.addData(Globals.MSG_ACTION,Globals.ACTION_REQUEST);
-		gcmdata.addData(Globals.MSG_MAIL, mail);
-		gcmdata.addData(Globals.MSG_DOMAIN, dominio);
-		gcmdata.addData(Globals.MSG_REQ_ID,reqId);
-		gcmdata.addData(Globals.MSG_SERVER_KEY,serverKey);
+		gcmdata.addData(Globals.MSG_AAD,reqId);
+		gcmdata.addData(Globals.MSG_IV, iv);
+		gcmdata.addData(Globals.MSG_PAYLOAD, payloadCif);
 		
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -59,22 +81,44 @@ public class AskForPassResources {
 		System.out.println("Response code: "+responseCode);
 	}
 	
-	private void sendClearNotif(String[] userId,String mail,String dominio,String pass, String reqId,String serverKey) throws Exception{
+	private String getResponseMessage(String serverKey, String mail, String dom, Response r) throws JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, UnsupportedEncodingException{
+		Message payloadResponse = new Message();
+		payloadResponse.addData(Globals.MSG_PAYLOAD, r.getPasswd());
+		payloadResponse.addData(Globals.MSG_DOMAIN,dom);
+		payloadResponse.addData(Globals.MSG_TS,r.getTs());
+		payloadResponse.addData(Globals.MSG_NONCE,r.getNonce());
+		payloadResponse.addData(Globals.MSG_STATE,r.getEstado());
+		System.out.println("El nonce que voy a devolver va a ser:"+r.getNonce());
+		payloadResponse.addData(Globals.MSG_IV,r.getIv());
+		ObjectWriter ow = new ObjectMapper().writer();
+		String payloadPlain = ow.writeValueAsString(payloadResponse);
+		String iv = GaloisCounterMode.getIv();
+		String payloadCipher = GaloisCounterMode.GCMEncrypt(serverKey, iv, payloadPlain, mail);
+		Message response = new Message();
+		response.addData(Globals.MSG_AAD, mail);
+		response.addData(Globals.MSG_IV,iv);
+		response.addData(Globals.MSG_PAYLOAD,payloadCipher);
+		
+		return ow.writeValueAsString(response);
+	}
+	private void sendClearNotif(String[] userId, String reqId,String serverKey) throws Exception{
 		URL obj = new URL(Globals.GCM_URL);
 		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/json");
 		con.setRequestProperty("Authorization", "key=AIzaSyBazwPhhD0N6ddh3Ph0IK59kKOrFjBixZY");
-		
+		Message payloadMessage = new Message();
+		payloadMessage.addData(Globals.MSG_REQ_ID, reqId);
+		payloadMessage.addData(Globals.MSG_ACTION, Globals.ACTION_CLEARNOTIF);
+		ObjectWriter ow = new ObjectMapper().writer();
+		String payloadPlain = ow.writeValueAsString(payloadMessage);
+		String iv = GaloisCounterMode.getIv();
+		String payloadCipher = GaloisCounterMode.GCMEncrypt(serverKey, iv, payloadPlain, reqId);
 		ObjectMapper om = new ObjectMapper();
 		GCMMessage gcmdata = new GCMMessage(userId);
-		gcmdata.addData(Globals.MSG_ACTION,Globals.ACTION_CLEARNOTIF);
-		gcmdata.addData(Globals.MSG_MAIL, mail);
-		gcmdata.addData(Globals.MSG_DOMAIN, dominio);
-		gcmdata.addData(Globals.MSG_PASSWD,pass);
-		gcmdata.addData(Globals.MSG_REQ_ID,reqId);
-		gcmdata.addData(Globals.MSG_SERVER_KEY, serverKey);
-		
+		gcmdata.addData(Globals.MSG_AAD,reqId);
+		gcmdata.addData(Globals.MSG_IV, iv);
+		gcmdata.addData(Globals.MSG_PAYLOAD, payloadCipher);
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 		om.writeValue(wr, gcmdata);
@@ -82,66 +126,75 @@ public class AskForPassResources {
 		wr.close();
 		
 		int responseCode = con.getResponseCode();
-		System.out.println("\nEnviando mensaje a los requesters.");
+		System.out.println("\nEnviando mensaje de borrar peticion a los requesters.");
+		System.out.println("Numero de Requesters: "+userId.length);
 		System.out.println("Response code: "+responseCode);
 	}
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String ping() throws JsonProcessingException{
-		requests = Requests.singleton(Globals.fichRequests);
-    	HashMap<String,HashMap<String,String>> peticiones = requests.getPendingRequests();
+		requests = Requests.singleton();
+    	HashMap<String,HashMap<String,Long>> peticiones = requests.getPendingRequests();
 
 	    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 	    return ow.writeValueAsString(peticiones);
 	}
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	public String askForPass(String body){
+	public String askForPass(String body) throws InvalidKeyException, JsonParseException, 
+	JsonMappingException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, 
+	BadPaddingException, InvalidAlgorithmParameterException, IOException{
 		System.out.println("\nHa llegado un mensaje para pedir una contraseña.");
 		System.out.println(body);
-		Message message = UtilMessage.stringToMessage(body);
-		if(message!=null){
-			registered = Registered.singleton(Globals.fichRegistered);
-	    	requests = Requests.singleton(Globals.fichRequests);
-	    	System.out.println("Mensaje de peticion:");
-	    	Set<String> keys = message.keySet();
-	    	for(String s: keys){
-	    		System.out.println(s+": "+message.value(s));
-	    	}
-	    	String mail = message.value(Globals.MSG_MAIL);
-	    	//String regId = message.value(Globals.MSG_REG_ID); para cuando envie al movil el ordenador que ha enviado la peticion.
-	    	String dominio = message.value(Globals.MSG_DOMAIN);
-	    	String serverKey = message.value(Globals.MSG_SERVER_KEY);
-	    	if(registered.correctServerKey(mail, serverKey)){
-	    		Response pass = null;
-	    		String reqId = null;
-	    		//Añadimos a la lista de peticiones pendientes.
-	    		try {
-	    			reqId = requests.getRequestId();
-					requests.addRequest(mail,reqId,dominio);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-	    		String[] containers = registered.containers(mail);
-	    		try {
-					sendRequestMessage(containers, mail, dominio,reqId,serverKey);
-					if(reqId!=null)
-						pass = requests.getResponse(reqId);
-					if(pass.getUsername().equals("")){
-						//No existe el regId vacio por lo que se lo mando a todos ya que ninguno ha contestado.
-						System.out.println("No me han contestado. Envio a todos los containers.");
-						sendClearNotif(containers, mail, dominio, pass.getPasswd(), reqId,serverKey);
+		String mail = UtilMessage.getMessageMail(body);
+		System.out.println("El mail es:"+mail);
+		String reqId = null;
+		registered = Registered.singleton(Globals.fichRegistered);
+		requests = Requests.singleton();
+		Response pass = null;
+		tsCache = TimestampCache.getSingleton();
+		String serverKey = registered.getServerKey(mail);
+		System.out.println("El serverKey es: "+serverKey);
+		if(serverKey!=null){
+			PayloadRequest message = null;
+			message = UtilMessage.getPayloadRequestMessage(body, serverKey);
+			System.out.println("Llega aqui");
+			System.out.println("Se ha recuperado el message");
+			if(message!=null){
+				System.out.println("El mensaje es distinto de null");
+				if(!tsCache.hasTimeStamp(message.getTs())){
+					System.out.println("El timeStamp no existe");
+					tsCache.addTimeStamp(message.getTs());
+					reqId = requests.getRequestId();
+					try {
+						System.out.println("El nonce de peticion es: "+message.getNonce());
+						requests.addRequest(mail, reqId, message.getNonce());
+						System.out.println("He añadido la petición");
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-					ObjectWriter ow = new ObjectMapper().writer();
-					return ow.writeValueAsString(pass);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					String[] containers = registered.containers(mail); 
+					try {
+						sendRequestMessage(containers, mail, message.getDominio(), reqId, serverKey, message.getNonce());
+						System.out.println("He enviado el mensaje de petición a los contenedores");
+						if(reqId!=null){
+							pass = requests.getResponse(reqId);
+						}
+						
+						if(Globals.MSG_STATE_OK.equals(pass.getEstado())||Globals.MSG_STATE_NO_PASSWD.equals(pass.getEstado())){
+							sendClearNotif(containers,reqId,serverKey);
+							return getResponseMessage(serverKey, mail, message.getDominio(),pass);
+						}else{
+							System.out.println("No me han contestado. Envio a todos los containers.");
+							sendClearNotif(containers,reqId,serverKey);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}else{
+					System.out.println("Falla por repeticion de TS");
 				}
-	    		
-	    	}
-	    	return null;
+			}
 		}
 		return null;
 	}

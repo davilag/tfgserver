@@ -46,7 +46,7 @@ public class RegisterResources {
      */
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	public Boolean registrar(String body){
+	public String registrar(String body){
 		System.out.println("\nHa llegado un mensaje para registrarse.");
 		System.out.println(body);
 		registered = Registered.singleton(Globals.fichRegistered);
@@ -56,14 +56,13 @@ public class RegisterResources {
 			for(String s: keys){
 				System.out.println(s+": "+message.value(s));
 			}
-			String mail = message.value(Globals.MSG_MAIL);
-			String regId = message.value(Globals.MSG_REG_ID);
-			String role = message.value(Globals.MSG_ROLE);
-			String serverKey = message.value(Globals.MSG_SERVER_KEY);
+			String mail = (String)message.value(Globals.MSG_MAIL);
+			String regId = (String)message.value(Globals.MSG_REG_ID);
+			String role = (String)message.value(Globals.MSG_ROLE);
+			String serverKey = (String)message.value(Globals.MSG_SERVER_KEY);
 			try {
 				registered.backupUsers();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if(Globals.ACTION_REQUESTER.equals(role) || Globals.ACTION_CONTAINER.equals(role)){
@@ -71,15 +70,14 @@ public class RegisterResources {
 				try {
 					return registered.register(mail, regId, role,serverKey);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 	    	System.out.println(registered.getNUsers());
-	    	return false;
+	    	return "false";
 		}
 		System.out.println("Es igual a null");
-		return false;
+		return "false";
 		
 	}
 }

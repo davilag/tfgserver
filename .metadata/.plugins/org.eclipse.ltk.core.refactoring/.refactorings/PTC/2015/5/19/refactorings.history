@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;dominioIn&apos; in &apos;es.david.ptc.util.Requests.removeRequest(...)&apos; to &apos;nonceIn&apos;&#x0A;- Original project: &apos;PTC&apos;&#x0A;- Original element: &apos;es.david.ptc.util.Requests.removeRequest(String, String, String, String, String, int).dominioIn&apos;&#x0A;- Renamed element: &apos;dominioIn&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;dominioIn&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;es.david.ptc.util{Requests.java[Requests~removeRequest~QString;~QString;~QString;~QString;~QString;~I@dominioIn!2236!2251!2243!2251!QString;!0!true" name="nonceIn" references="true" stamp="1430765905025" version="1.0"/>
+</session>

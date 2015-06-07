@@ -40,7 +40,7 @@ public class Usuario {
 	public String getUsername() {
 		return username;
 	}
-	public boolean addContainer(String regId){
+	public Boolean addContainer(String regId){
 		return containers.add(regId);
 	}
 	
@@ -61,7 +61,13 @@ public class Usuario {
 	public boolean hasContainer(String regId){
 		return this.containers.contains(regId);
 	}
+	public boolean removeContainer(String regId){
+		return this.containers.remove(regId);
+	}
 	
+	public int containersSize(){
+		return this.containers.size();
+	}
 	public class Requester {
 		@JsonProperty("hostname") private String hostname;
 		

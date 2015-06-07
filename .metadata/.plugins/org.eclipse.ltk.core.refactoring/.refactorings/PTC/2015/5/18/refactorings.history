@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;es.david.ptc.util.RequestMessage&apos; to &apos;CryptoMessage&apos;&#x0A;- Original project: &apos;PTC&apos;&#x0A;- Original element: &apos;es.david.ptc.util.RequestMessage&apos;&#x0A;- Renamed element: &apos;es.david.ptc.util.CryptoMessage&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;RequestMessage&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;es.david.ptc.util{RequestMessage.java[RequestMessage" matchStrategy="1" name="CryptoMessage" qualified="false" references="true" similarDeclarations="false" stamp="1430679143790" textual="false" version="1.0"/>
+</session>

@@ -34,7 +34,6 @@ public class Registered {
 		try {
 			backupUsers();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -48,17 +47,17 @@ public class Registered {
 			registered = om.readValue(fich, tr);
 		}
 	}
-	public synchronized boolean register(String username, String identificador,String role,String serverKey) throws Exception{
+	public synchronized String register(String username, String identificador,String role,String serverKey) throws Exception{
 		Usuario user = registered.get(username);
-		boolean reg = false;
+		String reg = "false";
 		if(user!=null){
 			if(serverKey.equals(user.getServerKey())){
 				System.out.println("El regId que me meten existe: "+user.hasContainer(identificador));
 				if(role.equals(Globals.ACTION_CONTAINER)&&!user.hasContainer(identificador)){
-					reg = user.addContainer(identificador);
+					reg = user.addContainer(identificador).toString();
 				}else{
 					//Es un requester, solamente miro si tiene bien la serverKey
-					return true;
+					return "true";
 				}
 			}
 			
@@ -67,7 +66,7 @@ public class Registered {
 				user = new Usuario();
 				user.setServerKey(serverKey);
 				user.setUsername(username);
-				reg = user.addContainer(identificador);
+				reg = user.addContainer(identificador).toString();
 			}
 		}
 		if(user!=null)
@@ -141,5 +140,37 @@ public class Registered {
 	
 	public synchronized int getNContainers(String mail){
 		return this.registered.get(mail).containersIds().size();
+	}
+	
+	public synchronized String getServerKey(String mail){
+		Usuario user = this.registered.get(mail);
+		if(user!=null){
+			return user.getServerKey();
+		}else{
+			return null;
+		}
+	}
+	
+	public synchronized boolean removeRegId(String mail, String regId){
+		Usuario user = this.registered.get(mail);
+		if(user!=null){
+			user.removeContainer(regId);
+			if(user.containersSize()==0){
+				Usuario borrado = this.registered.remove(mail);
+				System.out.println(borrado);
+				System.out.println("Se borra el usuario porque no tiene regIds");
+			}else{
+				System.out.println("Se actualiza el usuario");
+				registered.put(mail, user);
+			}
+			ObjectMapper om = new ObjectMapper();
+			try {
+				om.writeValue(new File(file), this.registered);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
+		return false;
 	}
 }

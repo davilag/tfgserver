@@ -15,49 +15,31 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class Requests {
 	private String nfich;
-	private HashMap<String,HashMap<String,String>> pendingRequests;
+	private HashMap<String,HashMap<String,Long>> pendingRequests;
 	private HashMap<String, Response> pendingResponses;
 	static private Requests singleton;
 	private RandomString requestIdGenerator;
-	public static synchronized Requests singleton(String nfich){
+	public static synchronized Requests singleton(){
 		if(singleton==null){
-			singleton = new Requests(nfich);
+			singleton = new Requests();
 		}
 		return singleton;
 	}
 	public Requests() {
 		super();
-		this.pendingRequests = new HashMap<String,HashMap<String,String>>();
+		this.pendingRequests = new HashMap<String,HashMap<String,Long>>();
 		this.pendingResponses = new HashMap<String, Response>();
 		this.requestIdGenerator = new RandomString(15);
 	}
 	
-	public Requests(String nfich) {
-		super();
-		this.nfich = nfich;
-		this.pendingRequests = new HashMap<String,HashMap<String,String>>();
-		this.pendingResponses = new HashMap<String,Response>();
-		this.requestIdGenerator = new RandomString(15);
-		try {
-			backupRequests();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
-	public HashMap<String,HashMap<String,String>> getPendingRequests() {
+	public HashMap<String,HashMap<String,Long>> getPendingRequests() {
 		return pendingRequests;
 	}
 
-	public void setPendingRequests(HashMap<String,HashMap<String,String>> pendingRequests) {
+	public void setPendingRequests(HashMap<String,HashMap<String,Long>> pendingRequests) {
 		this.pendingRequests = pendingRequests;
 	}
-	private void saveStatus() throws JsonGenerationException, JsonMappingException, IOException{
-		ObjectMapper om = new ObjectMapper();
-		om.writeValue(new File(nfich), this.pendingRequests);
-	}
-	
 	@SuppressWarnings("unchecked")
 	public synchronized void backupRequests() throws IOException{
 		File fich = new File(nfich);
@@ -67,27 +49,45 @@ public class Requests {
 		}
 	}
 	
-	public synchronized void addRequest(String mail, String reqId, String dominio) throws JsonGenerationException, JsonMappingException, IOException{
-		HashMap<String, String> user = pendingRequests.get(mail);
+	public synchronized void addRequest(String mail, String reqId, long nonce) throws JsonGenerationException, JsonMappingException, IOException{
+		HashMap<String, Long> user = pendingRequests.get(reqId);
 		if(user == null){
-			user = new HashMap<String,String>();
+			user = new HashMap<String,Long>();
 		}
-		user.put(reqId, dominio);
-		this.pendingRequests.put(mail, user);
-		saveStatus();
+		user.put(mail, nonce);
+		this.pendingRequests.put(reqId, user);
 	}
 	public synchronized String getRequestId(){
 		return this.requestIdGenerator.nextString();
 	}
-	public synchronized boolean removeRequest(String mail,String user, 
-											  String pass,String reqId, String dominioIn, 
-											  int nContainers) throws JsonGenerationException, JsonMappingException, IOException{
+	public synchronized String getMail(String reqId){
+		HashMap<String,Long> reg = pendingRequests.get(reqId);
+		if(reg!=null){
+			return reg.entrySet().iterator().next().getKey();
+		}else{
+			return null;
+		}
+	}
+	
+	public synchronized boolean validNonce(String reqId, String mail, Long nonce){
+		HashMap<String,Long> reg = pendingRequests.get(reqId);
+		if(reg!=null){
+			Long nonceOld = reg.get(mail);
+			if(nonce - nonceOld  == 1){
+				return true;
+			}
+		}
+		return false;
+	}
+	public synchronized boolean removeRequest(String mail,String estado, 
+											  String pass,String reqId, long nonceIn, 
+											  long ts, String iv,int nContainers) throws JsonGenerationException, JsonMappingException, IOException{
 		System.out.println("El numero de containers para: "+mail+" es de: "+nContainers);
-		String dominio = this.pendingRequests.get(mail).get(reqId);
+		Long nonce = this.pendingRequests.get(reqId).get(mail);
 		System.out.println("Entra en borrar.");
-		if(dominio.equals(dominioIn)){
+		if(nonceIn-nonce==1){
 			System.out.println("Ha encontrado la peticion");
-			if("".equals(user)){
+			if("".equals(estado)){
 				Response r = this.pendingResponses.get(reqId);
 				if(r!=null){
 					r.incrementNResponses();
@@ -98,7 +98,7 @@ public class Requests {
 						return true;
 					}
 				}else{
-					r = new Response(user,pass);
+					r = new Response(estado,pass,iv,ts,nonceIn);
 					r.incrementNResponses();
 					this.pendingResponses.put(reqId, r);
 					if(r.getNresponses()>=nContainers){
@@ -107,11 +107,10 @@ public class Requests {
 				}
 				return false;
 			}else{
-				this.pendingRequests.get(mail).remove(reqId);
-				this.pendingResponses.put(reqId, new Response(user,pass));
+				this.pendingRequests.remove(reqId);
+				this.pendingResponses.put(reqId, new Response(estado,pass,iv,ts,nonceIn));
 				notifyAll();
 			}
-			saveStatus();
 			return true;
 		}
 		return false;
@@ -141,7 +140,7 @@ public class Requests {
 			 pass = pendingResponses.get(requestId);
 			pendingResponses.remove(requestId);
 		}else{
-			pass = new Response("","timeoutExpired");
+			pass = new Response("timeoutExpired","","",0L,0L);
 			pendingRequests.remove(requestId);
 		}
 		return pass;

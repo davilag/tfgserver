@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="myapp.Globals"/>
-<fullyQualifiedTypeName name="javax.net.ssl.HttpsURLConnection"/>
-<fullyQualifiedTypeName name="myapp.domain.GCMMessage"/>
-<fullyQualifiedTypeName name="restx.security.UserService"/>
-<fullyQualifiedTypeName name="myapp.User"/>
-<fullyQualifiedTypeName name="java.net.URL"/>
-<fullyQualifiedTypeName name="java.io.DataOutputStream"/>
-<fullyQualifiedTypeName name="java.util.concurrent.atomic.AtomicInteger"/>
-<fullyQualifiedTypeName name="myapp.Requests"/>
-<fullyQualifiedTypeName name="myapp.Registered"/>
-<fullyQualifiedTypeName name="javax.ws.rs.Path"/>
-<fullyQualifiedTypeName name="javax.ws.rs.GET"/>
-<fullyQualifiedTypeName name="javax.ws.rs.POST"/>
-<fullyQualifiedTypeName name="java.util.Set"/>
-<fullyQualifiedTypeName name="javassist.bytecode.Descriptor.Iterator"/>
-<fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="es.david.httptest.Usuario"/>
 <fullyQualifiedTypeName name="es.david.httptest.Usuario.Container"/>
@@ -29,8 +13,6 @@
 <fullyQualifiedTypeName name="es.david.ptctest.util.Usuario.Requester"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.core.type.TypeReference"/>
 <fullyQualifiedTypeName name="es.david.ptctest.util.RandomString"/>
-<fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectWriter"/>
-<fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonProperty"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
@@ -46,7 +28,6 @@
 <fullyQualifiedTypeName name="es.david.ptctest.util.Registered"/>
 <fullyQualifiedTypeName name="es.david.ptctest.util.Requests"/>
 <fullyQualifiedTypeName name="sun.print.resources.serviceui"/>
-<fullyQualifiedTypeName name="java.security.Security"/>
 <fullyQualifiedTypeName name="javax.crypto.Cipher"/>
 <fullyQualifiedTypeName name="javax.crypto.spec.IvParameterSpec"/>
 <fullyQualifiedTypeName name="java.util.BitSet"/>
@@ -55,9 +36,28 @@
 <fullyQualifiedTypeName name="javax.crypto.spec.SecretKeySpec"/>
 <fullyQualifiedTypeName name="org.bouncycastle.util.encoders.Hex"/>
 <fullyQualifiedTypeName name="java.security.SecureRandom"/>
-<fullyQualifiedTypeName name="org.bouncycastle.jce.provider.BouncyCastleProvider"/>
-<fullyQualifiedTypeName name="java.security.MessageDigest"/>
-<fullyQualifiedTypeName name="org.apache.commons.codec.binary.Base64"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="org.apache.commons.codec.binary.Base64"/>
 <fullyQualifiedTypeName name="org.bouncycastle.util.encoders.Base64"/>
+<fullyQualifiedTypeName name="java.security.Security"/>
+<fullyQualifiedTypeName name="org.bouncycastle.jce.provider.BouncyCastleProvider"/>
+<fullyQualifiedTypeName name="RequestMessage"/>
+<fullyQualifiedTypeName name="PayloadRequest"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.TimestampCache"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.PayloadRequest"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.RandomString"/>
+<fullyQualifiedTypeName name="java.security.MessageDigest"/>
+<fullyQualifiedTypeName name="org.bouncycastle.util.Arrays"/>
+<fullyQualifiedTypeName name="GaloisCounterMode"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.Globals"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.Requests"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectWriter"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.CryptoMessage"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.UtilMessage"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.GaloisCounterMode"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.Response"/>
+<fullyQualifiedTypeName name="es.david.ptc.util.Message"/>
 </qualifiedTypeNameHistroy>
