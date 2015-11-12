@@ -44,4 +44,5 @@ public class Globals {
     //Estados del mensaje de respuesta
     public static final String MSG_STATE_OK = "OK";
     public static final String MSG_STATE_NO_PASSWD ="noPass";
+    public static final long TIMEOUT = 2*60*1000;
 }

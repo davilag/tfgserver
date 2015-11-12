@@ -2,6 +2,7 @@ package es.david.ptc;
 
 import java.io.DataOutputStream;
 import java.net.URL;
+import java.util.Date;
 import java.util.Set;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -34,6 +35,7 @@ public class ResponseResource {
 		con.setRequestProperty("Content-Type", "application/json");
 		con.setRequestProperty("Authorization", "key=AIzaSyBazwPhhD0N6ddh3Ph0IK59kKOrFjBixZY");
 		Message payloadMessage = new Message();
+		payloadMessage.addData(Globals.MSG_TS, new Date().getTime());
 		payloadMessage.addData(Globals.MSG_REQ_ID, reqId);
 		payloadMessage.addData(Globals.MSG_ACTION, Globals.ACTION_CLEARNOTIF);
 		ObjectWriter ow = new ObjectMapper().writer();
@@ -83,8 +85,8 @@ public class ResponseResource {
 			System.out.println("Ha llegado hasta despues de descifrar");
 			System.out.println(payloadPlain);
 			Message payloadMsg = UtilMessage.stringToMessage(payloadPlain);
-			
-			if(payloadMsg!=null && !tsCache.hasTimeStamp ((long)payloadMsg.value(Globals.MSG_TS))){
+			long timestamp = (long)payloadMsg.value(Globals.MSG_TS);
+			if(payloadMsg!=null && !tsCache.hasTimeStamp ((long)payloadMsg.value(Globals.MSG_TS)) && UtilMessage.correctTimestamp(timestamp)){
 				tsCache.addTimeStamp((long)payloadMsg.value(Globals.MSG_TS));
 				Long nonce = new Long((int) payloadMsg.value(Globals.MSG_NONCE));
 				String estado = (String)payloadMsg.value(Globals.MSG_STATE);

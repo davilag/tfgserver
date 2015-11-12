@@ -1,11 +1,11 @@
 package es.david.ptc.util;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.Date;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -27,7 +27,9 @@ public class UtilMessage {
 		}
 		return null;
 	}
-	
+	public static boolean correctTimestamp(long timestamp){
+        return (new Date().getTime()-timestamp)<Globals.TIMEOUT;
+    }
 	public static PayloadRequest getPayloadRequestMessage(String message, String key) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 			CryptoMessage cm = mapper.readValue(message, CryptoMessage.class);

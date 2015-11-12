@@ -57,8 +57,8 @@ public class AddPassResources {
 		wr.close();
 		
 		int responseCode = con.getResponseCode();
-		System.out.println("\nEnviando mensaje de peticion a los containers.");
-		System.out.println("Response code: "+responseCode);
+		System.out.println("\nEnviando mensaje de peticion a los containers."+AddPassResources.class.toString());
+		System.out.println("Response code: "+responseCode+" "+AddPassResources.class.toString());
 	}
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
@@ -74,10 +74,10 @@ public class AddPassResources {
 				String serverKey = registered.getServerKey(mail);
 				if(serverKey!=null){
 					String payloadPlain = GaloisCounterMode.GCMDecrypt(serverKey, cm.getIv(), payloadCipher, mail);
-					System.out.println("El payload plano es: "+payloadPlain);
+					System.out.println("El payload plano es: "+payloadPlain+" "+AddPassResources.class.toString());
 					Message payload = UtilMessage.stringToMessage(payloadPlain);
-					Long ts = new Long((int)payload.value(Globals.MSG_TS));
-					if(!tsCache.hasTimeStamp(ts)){
+					Long ts = (Long)payload.value(Globals.MSG_TS);
+					if(!tsCache.hasTimeStamp(ts) && UtilMessage.correctTimestamp(ts)){
 						String reqId = requests.getRequestId();
 						String[] containers = registered.containers(mail);
 						sendAddPass(containers, payload, reqId,serverKey);
@@ -85,7 +85,7 @@ public class AddPassResources {
 						Response added = null;
 						if(reqId!=null){
 							added = requests.getResponse(reqId);
-							System.out.println("Ya tengo la respuesta de añadir!");
+							System.out.println("Ya tengo la respuesta de añadir!"+AddPassResources.class.toString());
 							if(Globals.MSG_STATE_OK.equals(added.getEstado())){
 								return true;
 							}

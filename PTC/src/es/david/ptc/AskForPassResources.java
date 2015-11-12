@@ -8,6 +8,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.crypto.BadPaddingException;
@@ -77,8 +78,8 @@ public class AskForPassResources {
 		wr.close();
 		
 		int responseCode = con.getResponseCode();
-		System.out.println("\nEnviando mensaje de peticion a los containers.");
-		System.out.println("Response code: "+responseCode);
+		System.out.println("\nEnviando mensaje de peticion a los containers. "+AskForPassResources.class.toString());
+		System.out.println("Response code: "+responseCode+" "+AskForPassResources.class.toString());
 	}
 	
 	private String getResponseMessage(String serverKey, String mail, String dom, Response r) throws JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, UnsupportedEncodingException{
@@ -88,7 +89,7 @@ public class AskForPassResources {
 		payloadResponse.addData(Globals.MSG_TS,r.getTs());
 		payloadResponse.addData(Globals.MSG_NONCE,r.getNonce());
 		payloadResponse.addData(Globals.MSG_STATE,r.getEstado());
-		System.out.println("El nonce que voy a devolver va a ser:"+r.getNonce());
+		System.out.println("El nonce que voy a devolver va a ser:"+r.getNonce()+" "+AskForPassResources.class.toString());
 		payloadResponse.addData(Globals.MSG_IV,r.getIv());
 		ObjectWriter ow = new ObjectMapper().writer();
 		String payloadPlain = ow.writeValueAsString(payloadResponse);
@@ -108,6 +109,7 @@ public class AskForPassResources {
 		con.setRequestProperty("Content-Type", "application/json");
 		con.setRequestProperty("Authorization", "key=AIzaSyBazwPhhD0N6ddh3Ph0IK59kKOrFjBixZY");
 		Message payloadMessage = new Message();
+		payloadMessage.addData(Globals.MSG_TS, new Date().getTime());
 		payloadMessage.addData(Globals.MSG_REQ_ID, reqId);
 		payloadMessage.addData(Globals.MSG_ACTION, Globals.ACTION_CLEARNOTIF);
 		ObjectWriter ow = new ObjectMapper().writer();
@@ -126,9 +128,9 @@ public class AskForPassResources {
 		wr.close();
 		
 		int responseCode = con.getResponseCode();
-		System.out.println("\nEnviando mensaje de borrar peticion a los requesters.");
-		System.out.println("Numero de Requesters: "+userId.length);
-		System.out.println("Response code: "+responseCode);
+		System.out.println("\nEnviando mensaje de borrar peticion a los requesters. "+AskForPassResources.class.toString());
+		System.out.println("Numero de Requesters: "+userId.length+" "+AskForPassResources.class.toString());
+		System.out.println("Response code: "+responseCode+" "+AskForPassResources.class.toString());
 	}
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -144,7 +146,7 @@ public class AskForPassResources {
 	public String askForPass(String body) throws InvalidKeyException, JsonParseException, 
 	JsonMappingException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, 
 	BadPaddingException, InvalidAlgorithmParameterException, IOException{
-		System.out.println("\nHa llegado un mensaje para pedir una contraseña.");
+		System.out.println("\nHa llegado un mensaje para pedir una contraseña. "+AskForPassResources.class.toString());
 		System.out.println(body);
 		String mail = UtilMessage.getMessageMail(body);
 		System.out.println("El mail es:"+mail);
@@ -158,12 +160,12 @@ public class AskForPassResources {
 		if(serverKey!=null){
 			PayloadRequest message = null;
 			message = UtilMessage.getPayloadRequestMessage(body, serverKey);
-			System.out.println("Llega aqui");
-			System.out.println("Se ha recuperado el message");
+			System.out.println("Llega aqui "+AskForPassResources.class.toString());
+			System.out.println("Se ha recuperado el message "+AskForPassResources.class.toString());
 			if(message!=null){
-				System.out.println("El mensaje es distinto de null");
-				if(!tsCache.hasTimeStamp(message.getTs())){
-					System.out.println("El timeStamp no existe");
+				System.out.println("El mensaje es distinto de null "+AskForPassResources.class.toString());
+				if(!tsCache.hasTimeStamp(message.getTs()) && UtilMessage.correctTimestamp(message.getTs())){
+					System.out.println("El timeStamp no existe "+AskForPassResources.class.toString());
 					tsCache.addTimeStamp(message.getTs());
 					reqId = requests.getRequestId();
 					try {

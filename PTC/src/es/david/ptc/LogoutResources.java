@@ -45,7 +45,7 @@ public class LogoutResources {
 			Message payload = UtilMessage.stringToMessage(payloadPlain);
 			String regId = (String)payload.value(Globals.MSG_REG_ID);
 			Long ts = (Long)payload.value(Globals.MSG_TS);
-			if(!tsCache.hasTimeStamp(ts)){
+			if(!tsCache.hasTimeStamp(ts) && UtilMessage.correctTimestamp(ts)){
 				System.out.println("El ts es nuevo");
 				return registered.removeRegId(aad, regId);
 			}

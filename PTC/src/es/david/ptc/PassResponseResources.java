@@ -34,6 +34,7 @@ public class PassResponseResources {
 	private Requests requests;
 	private TimestampCache tsCache;
 	
+    
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	public boolean addPassRes(String body) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, JsonGenerationException, JsonMappingException, IOException{
@@ -60,9 +61,9 @@ public class PassResponseResources {
 			System.out.println("Ha llegado hasta despues de descifrar");
 			System.out.println(payloadPlain);
 			Message payloadMsg = UtilMessage.stringToMessage(payloadPlain);
-			
-			if(payloadMsg!=null && !tsCache.hasTimeStamp ((long)payloadMsg.value(Globals.MSG_TS))){
-				tsCache.addTimeStamp((long)payloadMsg.value(Globals.MSG_TS));
+			long timestamp = (long)payloadMsg.value(Globals.MSG_TS);
+			if(payloadMsg!=null && !tsCache.hasTimeStamp (timestamp) && UtilMessage.correctTimestamp(timestamp)){
+				tsCache.addTimeStamp(timestamp);
 				Long nonce = new Long((int) payloadMsg.value(Globals.MSG_NONCE));
 				String estado = (String)payloadMsg.value(Globals.MSG_STATE);
 				String pass = (String) payloadMsg.value("");
