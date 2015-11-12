@@ -1,6 +1,7 @@
 package es.david.ptc;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -17,13 +18,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import es.david.ptc.util.GaloisCounterMode;
 import es.david.ptc.util.Globals;
 import es.david.ptc.util.Message;
 import es.david.ptc.util.Registered;
 import es.david.ptc.util.Requests;
+import es.david.ptc.util.Response;
 import es.david.ptc.util.TimestampCache;
 import es.david.ptc.util.UtilMessage;
 
@@ -34,10 +39,25 @@ public class PassResponseResources {
 	private Requests requests;
 	private TimestampCache tsCache;
 	
-    
+	private String getResponseMessage(String serverKey, long timestamp, long nonce, String estado, String mail) throws JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, UnsupportedEncodingException{
+		Message payloadResponse = new Message();
+		payloadResponse.addData(Globals.MSG_TS,timestamp);
+		payloadResponse.addData(Globals.MSG_NONCE,nonce);
+		payloadResponse.addData(Globals.MSG_STATE,estado);
+		ObjectWriter ow = new ObjectMapper().writer();
+		String payloadPlain = ow.writeValueAsString(payloadResponse);
+		String iv = GaloisCounterMode.getIv();
+		String payloadCipher = GaloisCounterMode.GCMEncrypt(serverKey, iv, payloadPlain, mail);
+		Message response = new Message();
+		response.addData(Globals.MSG_IV,iv);
+		response.addData(Globals.MSG_PAYLOAD,payloadCipher);
+		
+		return ow.writeValueAsString(response);
+	}
+	
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	public boolean addPassRes(String body) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, JsonGenerationException, JsonMappingException, IOException{
+	public String addPassRes(String body) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, JsonGenerationException, JsonMappingException, IOException{
 
 		System.out.println("Me ha llegado un mensaje de respuesta");
 		System.out.println(body);
@@ -72,14 +92,14 @@ public class PassResponseResources {
 					System.out.println("El nonce es valido");
 					boolean regResponse = requests.removeRequest(mail, estado, pass, aad, nonce, System.currentTimeMillis(), ivPass, registered.getNContainers(mail));
 					System.out.println("RegResponse: "+regResponse);
-					return true;
+					return getResponseMessage(serverKey, timestamp, nonce, estado, mail);
 					//TODO: Hacer lo de borrar las notis
 				}else{
 					System.out.println("El nonce es invalido");
 				}
 			}
 		}
-		return false;
+		return "false";
 		/*
 		System.out.println("\nHa llegado un mensaje de respuesta con la contraseña.");
 		System.out.println(body);

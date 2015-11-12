@@ -1,15 +1,25 @@
 package es.david.ptc;
 
 import java.io.DataOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.net.ssl.HttpsURLConnection;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import es.david.ptc.util.CryptoMessage;
 import es.david.ptc.util.GCMMessage;
@@ -60,9 +70,25 @@ public class AddPassResources {
 		System.out.println("\nEnviando mensaje de peticion a los containers."+AddPassResources.class.toString());
 		System.out.println("Response code: "+responseCode+" "+AddPassResources.class.toString());
 	}
+	
+	private String getResponseMessage(String serverKey, long timestamp, long nonce, String estado, String mail) throws JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, UnsupportedEncodingException{
+		Message payloadResponse = new Message();
+		payloadResponse.addData(Globals.MSG_TS,timestamp);
+		payloadResponse.addData(Globals.MSG_NONCE,nonce);
+		payloadResponse.addData(Globals.MSG_STATE,estado);
+		ObjectWriter ow = new ObjectMapper().writer();
+		String payloadPlain = ow.writeValueAsString(payloadResponse);
+		String iv = GaloisCounterMode.getIv();
+		String payloadCipher = GaloisCounterMode.GCMEncrypt(serverKey, iv, payloadPlain, mail);
+		Message response = new Message();
+		response.addData(Globals.MSG_IV,iv);
+		response.addData(Globals.MSG_PAYLOAD,payloadCipher);
+		
+		return ow.writeValueAsString(response);
+	}
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	public Boolean addPass(String body) throws Exception{
+	public String addPass(String body) throws Exception{
 		if(body!=null){
 			CryptoMessage cm = UtilMessage.getCryptoMessage(body);
 			String mail = cm.getAad();
@@ -87,53 +113,13 @@ public class AddPassResources {
 							added = requests.getResponse(reqId);
 							System.out.println("Ya tengo la respuesta de añadir!"+AddPassResources.class.toString());
 							if(Globals.MSG_STATE_OK.equals(added.getEstado())){
-								return true;
+								return getResponseMessage(serverKey, ts, added.getNonce(), added.getEstado(), mail);
 							}
 						}
 					}
 				}
 			}
 		}
-		/*
-		System.out.println("\nHa llegado un mensaje para guardar la contraseña.");
-		System.out.println(body);
-		Message message = UtilMessage.stringToMessage(body);
-		if(message!=null){
-			registered = Registered.singleton(Globals.fichRegistered);
-			requests = Requests.singleton(Globals.fichRequests);
-			String mail = message.value(Globals.MSG_MAIL);
-			String serverKey = message.value(Globals.MSG_SERVER_KEY);
-			String usuario = message.value(Globals.MSG_USER);
-			String pass = message.value(Globals.MSG_PASSWD);
-			String dom = message.value(Globals.MSG_DOMAIN);
-			if(registered.correctServerKey(mail, serverKey)){
-				Response added = null;
-				String reqId = requests.getRequestId();
-				try {
-					requests.addRequest(mail, reqId, "savePass");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				String[] containers = registered.containers(mail);
-				try {
-					sendAddPass(containers, mail, dom, reqId, serverKey,pass,usuario);
-					if(reqId!=null){
-						added = requests.getResponse(reqId);
-						System.out.println("Ya tengo la respuesta.");
-						if(added.getUsername().equals("")){
-							return false;
-						}else{
-							return Boolean.parseBoolean(added.getUsername());
-						}
-					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		*/
-		return false;
+		return "false";
 	}
 }
